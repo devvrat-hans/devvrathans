@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "deploy": "wrangler pages deploy out --project-name=devvrathans"
+    "deploy": "wrangler pages deploy out --project-name=devvrathans --branch=production"
   },
   "dependencies": {
     "@types/markdown-it": "^14.2.0",
