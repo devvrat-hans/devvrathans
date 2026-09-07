@@ -307,7 +307,7 @@ const FILESYSTEM: FileNode = {
           name: "contact.txt",
           content: [
             "Email:    devvrat.coding@gmail.com",
-            "Twitter:   x.com/devvrat_hans",
+            "Twitter:   x.com/DevvratHans",
             "LinkedIn: linkedin.com/in/devvrathans/",
             "GitHub:   github.com/devvrat-hans",
           ].join("\n"),

@@ -86,7 +86,7 @@ export default function Contact() {
           <motion.a
             variants={fadeUp}
             transition={{ duration: 0.4 }}
-            href="https://x.com/devvrat_hans"
+            href="https://x.com/DevvratHans"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 rounded-[100px] border border-hairline bg-canvas px-5 py-2.5 text-sm font-medium text-body hover:text-ink-light hover:border-hairline-strong transition-all"

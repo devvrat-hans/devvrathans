@@ -47,6 +47,6 @@ This website will evolve. I'll add more blog posts - about projects I'm building
 
 But the core idea stays the same: this is a space that represents me, not just a template I filled in.
 
-If you've made it this far - thanks for reading. Feel free to reach out at devvrat.coding@gmail.com or find me on [X](https://x.com/devvrat_hans) or [GitHub](https://github.com/devvrat-hans).
+If you've made it this far - thanks for reading. Feel free to reach out at devvrat.coding@gmail.com or find me on [X](https://x.com/DevvratHans) or [GitHub](https://github.com/devvrat-hans).
 
 Stay curious.
