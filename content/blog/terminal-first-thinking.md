@@ -23,14 +23,25 @@ The answer turned out to be surprisingly clean:
 
 ## The architecture
 
-YourCode is structured as a monorepo with four packages:
+YourCode is structured as a decoupled monorepo with four packages:
 
-1. `cli` - the developer-facing interface
-2. `server` - backend services and AI integration
-3. `database` - persistence layer
-4. `shared` - common types and utilities
+1. `packages/cli` - terminal UI powered by OpenTUI and React 19, managing the loopback OAuth listener, keyboard layers, and local tool execution runtime
+2. `packages/server` - Hono API gateway managing Clerk JWT authentication, Polar usage metering, system prompt compilation, and Vercel AI SDK multi-provider streaming
+3. `packages/database` - Prisma ORM layer with PostgreSQL
+4. `packages/shared` - isomorphic Zod validation schemas, model definitions, and tool contracts
 
-This separation means I can swap out the AI provider, change the storage backend, or redesign the CLI without breaking anything else. Clean boundaries matter.
+### Client-Side Distributed Tool Execution
+
+Most cloud coding assistants force you to upload your entire codebase to remote containers, introducing latency and compliance risks. YourCode decouples model orchestration from tool execution: the backend streams tool call specifications, but every file read, search (`grep`/`glob`), edit, and shell command (`bash`) runs locally on your machine within strict `process.cwd()` path confinement boundaries. Proprietary source code never leaves your workspace unprompted.
+
+## Enterprise AI Governance & Privacy Roadmap
+
+As agentic coding becomes standard, security and compliance are paramount. We're actively building enterprise governance directly into the CLI runtime:
+
+- **Client-Side DLP & PII Redaction**: Scanning tokens for private keys, secrets, and personal information before LLM transmission using Shannon entropy and local NER pseudonymization.
+- **Indirect Prompt Injection Defense**: Structured XML/Markdown boundary framing and schema AST validation to neutralize malicious instructions embedded in third-party source files.
+- **Zero-Knowledge Conversation Encryption**: Client-side AES-256-GCM message encryption derived via Argon2id from user passphrases, ensuring even database breaches expose zero plaintext code discussions.
+- **Process Sandboxing**: Containerized process jailing for arbitrary shell commands with interactive Human-In-The-Loop (HITL) approval gates.
 
 ## Open source
 

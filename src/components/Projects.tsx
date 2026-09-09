@@ -21,38 +21,14 @@ interface Project {
 
 const projects: Project[] = [
   {
-    name: "QRliee",
-    description: "QR-powered platform for event check-ins, digital menus, business cards, and building directories with real-time analytics.",
-    highlights: [
-      "Handled 7,000+ scans at Bharat Innovate with AI-powered Excel import",
-      "4 core products - events, menus, business cards, building directories",
-      "Smart QR codes with live updates, no reprinting needed",
-    ],
-    tags: ["Full Stack", "AI/ML", "QR Codes", "Analytics"],
-    link: "https://qrliee.com",
-    featured: true,
-  },
-  {
-    name: "ToonifyIt",
-    description: "LLM developer tool converting JSON to TOON (Token-Oriented Object Notation) for token-efficient data representation.",
-    highlights: [
-      "Real-time browser-based conversion engine",
-      "Client-side processing - zero data leaves your device",
-      "Configurable delimiters, length markers, token-count comparison",
-    ],
-    tags: ["Next.js", "TypeScript", "LLM Tools"],
-    link: "https://toonifyit.com",
-    featured: true,
-  },
-  {
     name: "YourCode",
-    description: "Open-source terminal-based coding agent for writing code and managing dev sessions with AI assistance.",
+    description: "Terminal-native autonomous AI coding agent with client-side tool execution, zero remote code exposure, and enterprise AI governance guardrails.",
     highlights: [
-      "Terminal-first developer experience - no browser/Electron",
-      "Modular monorepo: CLI, server, database, shared packages",
-      "Persistent coding sessions with customizable themes",
+      "Client-side distributed tool runtime with strict CWD path confinement",
+      "Bun, React 19, OpenTUI, Hono, Prisma ORM, Clerk PKCE & Polar metering",
+      "Enterprise AI governance: PII redaction, prompt injection defense & zero-knowledge encryption",
     ],
-    tags: ["TypeScript", "CLI", "Monorepo", "Open Source"],
+    tags: ["Bun", "React 19", "OpenTUI", "AI Agents", "AI Governance", "Prisma"],
     github: "https://github.com/devvrat-hans/yourcode",
     link: "https://yourcode.space",
     featured: true,
@@ -70,6 +46,64 @@ const projects: Project[] = [
     featured: true,
   },
   {
+    name: "Algorithmic Trading Bot",
+    description: "Python-based algorithmic trading bot for live trading on the Upstox API with modular architecture.",
+    highlights: [
+      "Modular design: market data, strategy, execution, risk controls",
+      "Stop-loss, take-profit, and automated Upstox API order execution",
+      "Real-time options and equities algorithmic trade management",
+    ],
+    tags: ["Python", "Trading", "API", "Finance"],
+    github: "https://github.com/devvrat-hans/algo-trading-bot",
+    featured: true,
+  },
+  {
+    name: "ControlPlane AI",
+    description: "Real-time AI governance proxy inspecting model calls in <10ms across cost, performance, and responsibility. Built for Accenture Innovation Challenge 2026 (Team Leader).",
+    highlights: [
+      "Team Leader for Accenture Innovation Challenge 2026 (Problem Statement 1: Reinvent with AI)",
+      "Sub-10ms fast path for regex/entropy secret detection, cost caps, and session risk",
+      "Async shadow path with 13 automated checks (DeepEval, Presidio, LLM Guard) & fail-open guarantee",
+    ],
+    tags: ["Rust", "Next.js", "AI Governance", "Docker", "Accenture Challenge"],
+    github: "https://github.com/devvrat-hans/controlplane-ai",
+    featured: true,
+  },
+  {
+    name: "Adani FinTell Suite",
+    description: "AI-powered enterprise financial intelligence & invoice compliance platform with multi-stage GST validation. Built for Adani Finnovate Hackathon 2025 (Team Leader, Runners Up).",
+    highlights: [
+      "Team Leader & Runners Up at Adani Finnovate Hackathon 2025",
+      "AI-powered OCR (80%+ accuracy) with 3-way PO matching and real-time GST portal validation",
+      "Automated duplicate detection, price anomaly benchmarks, and conversational analytics chatbot",
+    ],
+    tags: ["Python", "Gemini AI", "OCR", "FinTech", "Adani Hackathon", "Runner-Up"],
+    github: "https://github.com/devvrat-hans/adani-fintell-suite",
+    featured: true,
+  },
+  {
+    name: "QRliee",
+    description: "QR-powered platform for event check-ins, digital menus, business cards, and building directories with real-time analytics.",
+    highlights: [
+      "Handled 7,000+ scans at Bharat Innovate with AI-powered Excel import",
+      "4 core products - events, menus, business cards, building directories",
+      "Smart QR codes with live updates, no reprinting needed",
+    ],
+    tags: ["Full Stack", "AI/ML", "QR Codes", "Analytics"],
+    link: "https://qrliee.com",
+  },
+  {
+    name: "ToonifyIt",
+    description: "LLM developer tool converting JSON to TOON (Token-Oriented Object Notation) for token-efficient data representation.",
+    highlights: [
+      "Real-time browser-based conversion engine",
+      "Client-side processing - zero data leaves your device",
+      "Configurable delimiters, length markers, token-count comparison",
+    ],
+    tags: ["Next.js", "TypeScript", "LLM Tools"],
+    link: "https://toonifyit.com",
+  },
+  {
     name: "Sumacom Consultancy",
     description: "Official website for Sumacom Consultancy - research, consulting, and sustainable manufacturing initiatives.",
     highlights: [
@@ -78,7 +112,6 @@ const projects: Project[] = [
     ],
     tags: ["HTML", "CSS", "JavaScript", "MongoDB"],
     link: "https://sumacomconsultancy.com/",
-    featured: true,
   },
   {
     name: "Vardhaman Agencies",
@@ -89,18 +122,6 @@ const projects: Project[] = [
     ],
     tags: ["React.js", "B2B", "E-Commerce"],
     link: "https://vardhamanagencies.in",
-    featured: true,
-  },
-  {
-    name: "Algorithmic Trading Bot",
-    description: "Python-based algorithmic trading bot for live trading on the Upstox API with modular architecture.",
-    highlights: [
-      "Modular design: market data, strategy, execution, risk controls",
-      "Stop-loss, take-profit, and configurable risk management",
-    ],
-    tags: ["Python", "Trading", "API", "Finance"],
-    github: "https://github.com/devvrat-hans/algo-trading-bot",
-    featured: true,
   },
   {
     name: "Boeing BUILD 2026",
@@ -141,15 +162,6 @@ const projects: Project[] = [
     ],
     tags: ["HTML", "CSS", "JavaScript"],
     github: "https://github.com/devvrat-hans/Chess-IITGN",
-  },
-  {
-    name: "FinGuard AI",
-    description: "AI-powered expense auditing platform - invoice extraction, anomaly detection, and compliance monitoring.",
-    highlights: [
-      "GST validation, fraud identification, duplicate detection",
-      "Built at Finnovate Hack 2025 - Runner-Up",
-    ],
-    tags: ["Python", "AI/ML", "Hackathon"],
   },
   {
     name: "Poetic Text Generator",
@@ -221,12 +233,14 @@ export default function Projects() {
           }}
           className="mt-14 grid sm:grid-cols-2 gap-4"
         >
-          {projects.filter(p => p.featured).map((project) => (
+          {projects.filter(p => p.featured).map((project, index) => (
             <motion.div
               key={project.name}
               variants={fadeUp}
               transition={{ duration: 0.4 }}
-              className="group rounded-xl border border-hairline bg-canvas-soft p-6 card-elevated flex flex-col"
+              className={`group rounded-xl border border-hairline bg-canvas-soft p-6 card-elevated flex flex-col ${
+                index === 4 ? "sm:col-span-2" : ""
+              }`}
             >
               <div className="flex items-start justify-between mb-3">
                 <div className="flex items-center gap-2">
@@ -264,7 +278,7 @@ export default function Projects() {
               </p>
 
               <ul className="mt-3 space-y-1">
-                {project.highlights.slice(0, 2).map((h, i) => (
+                {project.highlights.slice(0, 3).map((h, i) => (
                   <li key={i} className="text-xs text-mute flex items-start gap-1.5">
                     <span className="text-accent-cyan mt-0.5">▸</span>
                     {h}
