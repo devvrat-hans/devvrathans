@@ -104,16 +104,6 @@ const projects: Project[] = [
     link: "https://toonifyit.com",
   },
   {
-    name: "Sumacom Consultancy",
-    description: "Official website for Sumacom Consultancy - research, consulting, and sustainable manufacturing initiatives.",
-    highlights: [
-      "Backend-driven content with MongoDB data management",
-      "Responsive interface across desktop and mobile",
-    ],
-    tags: ["HTML", "CSS", "JavaScript", "MongoDB"],
-    link: "https://sumacomconsultancy.com/",
-  },
-  {
     name: "Vardhaman Agencies",
     description: "B2B/B2C website for a packaging-solutions business serving customers across India.",
     highlights: [

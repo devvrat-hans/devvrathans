@@ -378,6 +378,24 @@ const FILESYSTEM: FileNode = {
         },
       },
     },
+    "resume.pdf": {
+      type: "file",
+      name: "resume.pdf",
+      content: [
+        "Devvrat Hans - 1-Page Software Engineering & AI Resume (76 KB)",
+        "Focused on SWE, Agentic AI, and Full-Stack Engineering.",
+        "Type 'resume' in terminal or open https://devvrathans.com/resume.pdf",
+      ].join("\n"),
+    },
+    "cv.pdf": {
+      type: "file",
+      name: "cv.pdf",
+      content: [
+        "Devvrat Hans - 5-Page Master Academic Curriculum Vitae (127 KB)",
+        "Includes full research, coursework, awards, and positions of responsibility.",
+        "Type 'cv' in terminal or open https://devvrathans.com/cv.pdf",
+      ].join("\n"),
+    },
   },
 };
 
@@ -514,6 +532,8 @@ export default function Terminal({ onClose }: { onClose: () => void }) {
           { type: "output", text: "    projects               cd + cat projects" },
           { type: "output", text: "    skills                 cd + cat skills" },
           { type: "output", text: "    contact                cd + cat contact" },
+          { type: "output", text: "    resume                 open 1-page SWE resume (PDF)" },
+          { type: "output", text: "    cv                     open 5-page master academic CV (PDF)" },
           { type: "output", text: "" },
           { type: "output", text: "  SYSTEM" },
           { type: "output", text: "    clear                  clear terminal" },
@@ -809,6 +829,34 @@ export default function Terminal({ onClose }: { onClose: () => void }) {
             resolvePath("~", "contact/contact.txt")?.content || ""
           ).split("\n").map((l) => ({ type: "output" as const, text: l })),
         ];
+
+      case "resume": {
+        if (typeof window !== "undefined") {
+          window.open("/resume.pdf", "_blank");
+        }
+        return [
+          { type: "output", text: "Opening 1-Page Resume (/resume.pdf)..." },
+          { type: "output", text: "" },
+          { type: "output", text: "  Document: Devvrat Hans - 1-Page Resume (76 KB PDF)" },
+          { type: "output", text: "  Focus:    Software Engineering, Agentic AI, Production Full-Stack" },
+          { type: "output", text: "  Direct:   https://devvrathans.com/resume.pdf" },
+          { type: "output", text: "" },
+          { type: "output", text: "  Tip: Type 'cv' to open the 5-page Master Academic CV." },
+        ];
+      }
+
+      case "cv": {
+        if (typeof window !== "undefined") {
+          window.open("/cv.pdf", "_blank");
+        }
+        return [
+          { type: "output", text: "Opening 5-Page Master CV (/cv.pdf)..." },
+          { type: "output", text: "" },
+          { type: "output", text: "  Document: Devvrat Hans - 5-Page Master CV (127 KB PDF)" },
+          { type: "output", text: "  Focus:    Full Academic, Research (Biomaterials, Chess), Coursework & PoRs" },
+          { type: "output", text: "  Direct:   https://devvrathans.com/cv.pdf" },
+        ];
+      }
 
       default:
         return [

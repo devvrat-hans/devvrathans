@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Mail, ExternalLink } from "lucide-react";
+import { Mail, ExternalLink, FileText } from "lucide-react";
 
 const GithubIcon = ({ size = 14 }: { size?: number }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
@@ -106,6 +106,17 @@ export default function Contact() {
           >
             <GithubIcon size={14} />
             GitHub
+            <ExternalLink size={10} className="opacity-50" />
+          </motion.a>
+
+          <motion.a
+            variants={fadeUp}
+            transition={{ duration: 0.4 }}
+            href="/resume"
+            className="flex items-center gap-2 rounded-[100px] border border-hairline bg-canvas px-5 py-2.5 text-sm font-medium text-body hover:text-ink-light hover:border-hairline-strong transition-all"
+          >
+            <FileText size={14} className="text-accent-cyan" />
+            Resume &amp; CV
             <ExternalLink size={10} className="opacity-50" />
           </motion.a>
         </motion.div>
