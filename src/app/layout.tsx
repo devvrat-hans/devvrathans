@@ -15,6 +15,7 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });export const metadata: Metadata = {
+  metadataBase: new URL("https://devvrathans.com"),
   title: "Devvrat Hans - Software Engineer & Builder",
   description:
     "Portfolio of Devvrat Hans - B.Tech CSE at IIT Gandhinagar. Software engineer, open-source contributor, and builder of things that matter.",
@@ -38,13 +39,13 @@ const geistMono = Geist_Mono({
     url: "https://devvrathans.com",
     siteName: "Devvrat Hans",
     type: "website",
-    images: ["/profile.jpg"],
+    images: ["/og.png"],
   },
   twitter: {
     card: "summary_large_image",
     title: "Devvrat Hans - Software Engineer & Builder",
     description: "Portfolio of Devvrat Hans - B.Tech CSE at IIT Gandhinagar.",
-    images: ["/profile.jpg"],
+    images: ["/og.png"],
   },
 };
 

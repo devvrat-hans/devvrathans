@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "node scripts/fetch-github-charts.mjs && next build",
+    "build": "node scripts/generate-og.mjs && node scripts/fetch-github-charts.mjs && next build",
     "start": "next start",
     "lint": "eslint",
     "deploy": "wrangler pages deploy out --project-name=devvrathans --branch=production"
