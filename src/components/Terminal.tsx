@@ -56,6 +56,7 @@ const FILESYSTEM: FileNode = {
           content: [
             "JEE Advanced AIR 1505 (top 1%)",
             "JEE Mains 99.65 percentile",
+            "Accenture Innovation Challenge 2026 - National Top 10 (3,000+ teams), PPO",
             "Finnovate Hack 2025 Runner-Up",
             "Dean's List - Semester I",
             "FIDE Rapid Rating: 1437",
@@ -194,6 +195,7 @@ const FILESYSTEM: FileNode = {
             "Name:   ControlPlane AI",
             "Stack:  Rust, Next.js, Docker, AI Governance",
             "Event:  Accenture Innovation Challenge 2026 (Team Leader)",
+            "Result: National Top 10 out of 3,000+ teams & PPO recipient",
             "URL:    github.com/devvrat-hans/controlplane-ai",
             "",
             "Real-time AI governance proxy inspecting model calls in <10ms",
@@ -545,7 +547,6 @@ export default function Terminal({ onClose }: { onClose: () => void }) {
           lines.push(
             { type: "output", text: "" },
             { type: "output", text: "  FLAGS:" },
-            { type: "output", text: "    -h, --help     show help for a command" },
             { type: "output", text: "    -v, --verbose  verbose output" },
             { type: "output", text: "    -a, --all      show hidden items" },
             { type: "output", text: "    -l             long listing format" },
@@ -727,7 +728,7 @@ export default function Terminal({ onClose }: { onClose: () => void }) {
           return [{ type: "error", text: `tree: ${target}: No such directory` }];
 
         const result: TerminalLine[] = [{ type: "dir", text: target === "~" ? "~" : target }];
-        const buildTree = (n: FileNode, prefix: string, isLast: boolean) => {
+        const buildTree = (n: FileNode, prefix: string) => {
           const entries = Object.values(n.children || {}).filter(
             (e) => !e.name.startsWith(".")
           );
@@ -740,11 +741,11 @@ export default function Terminal({ onClose }: { onClose: () => void }) {
               text: `${prefix}${connector}${child.name}${child.type === "dir" ? "/" : ""}`,
             });
             if (child.type === "dir" && child.children) {
-              buildTree(child, prefix + (last ? "    " : "│   "), last);
+              buildTree(child, prefix + (last ? "    " : "│   "));
             }
           });
         };
-        buildTree(node, "", true);
+        buildTree(node, "");
         return result;
       }
 

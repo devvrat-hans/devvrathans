@@ -133,6 +133,10 @@ export default function About() {
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-accent-cyan mt-0.5 text-xs">▸</span>
+                Accenture Innovation Challenge 2026 - National Top 10 (3,000+ teams) &amp; PPO
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-accent-cyan mt-0.5 text-xs">▸</span>
                 Finnovate Hack 2025 Runner-Up
               </li>
               <li className="flex items-start gap-2">

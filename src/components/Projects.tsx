@@ -59,13 +59,13 @@ const projects: Project[] = [
   },
   {
     name: "ControlPlane AI",
-    description: "Real-time AI governance proxy inspecting model calls in <10ms across cost, performance, and responsibility. Built for Accenture Innovation Challenge 2026 (Team Leader).",
+    description: "Real-time AI governance proxy inspecting model calls in <10ms across cost, performance, and responsibility. National Top 10 at Accenture Innovation Challenge 2026 (Team Leader) with a Pre-Placement Offer.",
     highlights: [
-      "Team Leader for Accenture Innovation Challenge 2026 (Problem Statement 1: Reinvent with AI)",
+      "Team Leader - National Top 10 out of 3,000+ teams across India's top 20 premier institutions, securing a PPO (Problem Statement 1: Reinvent with AI)",
       "Sub-10ms fast path for regex/entropy secret detection, cost caps, and session risk",
       "Async shadow path with 13 automated checks (DeepEval, Presidio, LLM Guard) & fail-open guarantee",
     ],
-    tags: ["Rust", "Next.js", "AI Governance", "Docker", "Accenture Challenge"],
+    tags: ["Rust", "Next.js", "AI Governance", "Docker", "Accenture Challenge", "National Top 10", "PPO"],
     github: "https://github.com/devvrat-hans/controlplane-ai",
     featured: true,
   },

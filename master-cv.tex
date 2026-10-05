@@ -1,0 +1,799 @@
+\documentclass[a4paper,10pt]{article}
+%-----------------------------------------------------------
+\usepackage[top=0.1cm, bottom=0.3cm, left=0.3cm, right=1.1cm, nohead, nofoot]{geometry}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{palatino}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\fontfamily{SansSerif}
+\selectfont
+
+\usepackage[T1]{fontenc}
+\usepackage
+%[ansinew]
+[utf8]
+{inputenc}
+
+\usepackage{color}
+\definecolor{mygrey}{gray}{0.75}
+\textheight = 29.1 cm
+\raggedbottom
+
+\setlength{\tabcolsep}{0in}
+\newcommand{\isep}{-2 pt}
+\newcommand{\lsep}{-0.8cm}
+\newcommand{\psep}{-0.8cm}
+\renewcommand{\labelitemii}{$\circ$}
+
+\pagestyle{empty}
+
+
+%-----------------------------------------------------------
+% Custom commands
+\newcommand{\resitem}[1]{\item #1 \vspace{-2pt}}
+\newcommand{\resheading}[1]{{\small \colorbox{mygrey}{\begin{minipage}{0.965\textwidth}{\textbf{#1 \vphantom{p\^{E}}}}\end{minipage}}}}
+\newcommand{\ressubheading}[3]{
+\begin{tabular*}{6.62in}{l @{\extracolsep{\fill}} r}
+	\textsc{{\textbf{#1}}} & \textsc{\textit{[#2]}} \\
+\end{tabular*}\vspace{-9pt}}
+%-----------------------------------------------------------
+
+
+
+
+
+\begin{document}
+
+\hspace{0.75cm}\\[-0.3cm]
+
+\Large{\textbf{Devvrat Hans}} \\
+\normalsize
+\indent 4th Year Undergraduate \hfill  \href{mailto:devvrat.hans@iitgn.ac.in}{devvrat.hans@iitgn.ac.in}\\ 
+\indent Computer Science and Engineering \hfill  +91 8368149927 \\
+\indent IIT Gandhinagar \hfill
+\underline{\href{https://devvrathans.com}{Portfolio}} \ $|$\ 
+\underline{\href{https://github.com/devvrat-hans}{GitHub}} \ $|$\ 
+\underline{\href{https://www.linkedin.com/in/devvrathans/}{LinkedIn}}
+\vspace{0.4 cm}
+
+%===========================================================
+% ACADEMIC DETAILS
+%===========================================================
+
+\indent\resheading{\textbf{ACADEMIC DETAILS}}\\[\lsep]
+\\[0.1cm]
+
+
+\indent \begin{tabular}{p{1.7cm} @{\hskip 0.08in} p{5.254cm} @{\hskip 0.001in} p{5.854cm} @{\hskip 0.09in} p{4.354cm} @{\hskip 0.08in} p{1.32cm}}
+    \toprule
+    \textbf{Degree} & \textbf{Specialization} & \textbf{Institute} & \textbf{Year} & \textbf{CPI/\%} \\
+    \midrule
+    B.Tech. & \textit{Computer Science and Engineering} & IIT Gandhinagar & 2023-2027 & 8.30/10 \\
+    Class XII  & \textit{Physics, Chemistry, Maths}  &  White Leaf Public School  & 2022-2023 & 94.40\%\\
+    Class X  & --- & Modern Delhi Public School & 2020-2021 & 96.60\%\\
+    \bottomrule
+\end{tabular}
+\\
+\\[-0.3cm]
+
+
+%===========================================================
+% INTERNSHIPS
+%===========================================================
+
+\indent\resheading{\textbf{INTERNSHIPS}}
+\vspace{-0.5cm}
+
+\begin{itemize} \itemsep \isep
+
+%-----------------------------------------------------------
+% INTENTYFI
+%-----------------------------------------------------------
+
+    \item \textbf{Software Engineering Intern, Intentyfi}\hfill [February '26 - July '26]
+    \\[-0.6cm]
+
+    \begin{itemize}\itemsep \isep
+
+        \item Architected and built the \textbf{Case Management Application (CMA)} from scratch using \textbf{Rust, Axum, PostgreSQL, Next.js, TypeScript, and Tailwind CSS}, enabling case monitoring, reviewer workflows, dashboards, and Human-in-the-Loop (HITL) oversight.
+
+        \item Built production \textbf{RAG infrastructure} covering document extraction, configurable chunking, Gemini embeddings, PostgreSQL vector storage, and similarity retrieval for enterprise knowledge grounding.
+
+        \item Implemented an end-to-end \textbf{HITL pause/resume protocol} across agent runtime and case-management services, supporting Approve, Reject, Escalate, and Reopen reviewer workflows with auditable state transitions.
+
+        \item Implemented AI-agent security controls including \textbf{PII masking, multi-layer prompt-injection detection, threat categorization, audit logging, and BYOK credential management}.
+
+        \item Built \textbf{AST-based SQL validation} using Rust's \texttt{sqlparser}, enforcing single-statement read-only queries and preventing DDL/DML execution from LLM-generated or user-submitted SQL.
+
+        \item Engineered LLM orchestration systems using \textbf{Python, FastAPI, Google ADK, and Gemini}, including schema grounding, conversation compression, context-aware follow-up suggestions, asynchronous BI execution, result caching, and artifact scoping.
+
+        \item Implemented production frontend applications using \textbf{Angular, RxJS, Next.js, TypeScript, and Tailwind CSS}, including dashboards, database explorers, API/MCP tooling, governance interfaces, and case-management workflows.
+
+        \item Implemented cloud deployment and infrastructure workflows using \textbf{GCP Cloud Run, Cloud Build, Cloud SQL, Vertex AI, Docker, and GCP IAM}; integrated token metering and billing workflows using Rust/Axum and PostgreSQL.
+
+    \end{itemize}
+
+%-----------------------------------------------------------
+% ABACK
+%-----------------------------------------------------------
+
+    \item \textbf{Founder's Office - Technology, Aback.ai}\hfill [June '25 - February '26]
+    \\[-0.6cm]
+
+    \begin{itemize}\itemsep \isep
+
+        \item Partnered directly with founders to lead technical architecture, product engineering, and automated workflows across multiple early-stage AI products from conception to production deployment.
+
+        \item Delivered software systems spanning \textbf{finance, inventory, recruitment, and sustainability}, translating business requirements into scalable multi-tenant architectures and automated pipelines.
+
+        \item Built and launched \textbf{AbackTools.com}, an AI-powered tools platform providing utilities across data processing, image manipulation, PDF workflows, and network diagnostics, generating $\sim$\textbf{500 clicks/day}.
+
+        \item Contributed to \textbf{QRliee}, developing QR-based digital workflows, real-time event analytics, and AI-assisted data-import modules for digital menus, business cards, and building directories.
+
+        \item Built core modules for \textbf{Invoice Management Software, Inventory Systems, Aback Terminal, and AI Recruitment Portal}, streamlining enterprise operations and automated candidate screening.
+
+    \end{itemize}
+    
+
+%-----------------------------------------------------------
+% TRADO
+%-----------------------------------------------------------
+
+    \item \textbf{Development Intern, Trado (Windigo Trade Pvt. Ltd.)}\hfill [November '25 - January '26]
+    \\[-0.6cm]
+
+    \begin{itemize}\itemsep \isep
+
+        \item Developed Trado's algorithmic trading platform using \textbf{LEAN}, the open-source quantitative trading engine by QuantConnect, adapting its architecture to company-specific infrastructure and deployment requirements.
+
+        \item Worked with LEAN's \textbf{factory-based architecture} to customize core components for backtesting and live algorithm execution.
+
+        \item Built an end-to-end pipeline enabling transition between \textbf{historical backtesting and live algorithmic trading}.
+
+        \item Implemented and integrated brokerage plugins supporting additional \textbf{Indian discount brokers}, extending platform compatibility and execution flexibility.
+
+        \item Solely led development of \textbf{Connect by Trado} from scratch, building brokerage integration and infrastructure for automated algorithmic trading.
+
+    \end{itemize}
+
+
+%-----------------------------------------------------------
+% CURLSEK
+%-----------------------------------------------------------
+
+    \item \textbf{Development Intern, Curlsek AI Technologies Pvt. Ltd.}\hfill [March '25 - July '25]
+    \\[-0.6cm]
+
+    \begin{itemize}\itemsep \isep
+
+        \item Developed the core Proof-of-Concept (PoC) for Curlsek.ai's AI-powered cybersecurity portal by building AI agents to detect vulnerabilities such as \textbf{SQL Injection and Path Traversal} and supporting automated security testing workflows.
+
+        \item Designed and implemented secure authentication and authorization APIs using \textbf{Spring Boot and MongoDB} for the platform's backend.
+
+        \item Built scalable services supporting \textbf{user authentication, role-based access control (RBAC), and secure session management} across endpoints.
+
+        \item Contributed to the early-stage architecture of AI-agent-based offensive security workflows for automated vulnerability analysis and continuous penetration testing.
+
+    \end{itemize}
+
+\end{itemize}
+
+
+%===========================================================
+% RESEARCH PROJECTS
+%===========================================================
+
+\indent\resheading{\textbf{RESEARCH PROJECTS}}
+\vspace{-0.5cm}
+
+\begin{itemize}\itemsep \isep
+
+    \item \textbf{AI in Designing Effective Biomaterials}\ \hfill [August '26 - Present] \\
+    \textit{Prof. Mukesh Dhanka, IIT Gandhinagar}
+    \\[-0.7cm]
+
+    \begin{itemize}\itemsep \isep
+
+        \item Architected a full-stack platform predicting biopolymer-solvent interactions and material properties ($T_g$, dielectric constant, Flory-Huggins $\chi$, solubility) under varying conditions (pH, temperature, concentration).
+
+        \item Engineered molecular featurization pipelines using \textbf{RDKit}, extracting 1024-bit Morgan fingerprints and 2D physicochemical descriptors from polymeric PSMILES representations with automated validation and deduplication.
+
+        \item Trained multi-seed \textbf{XGBoost ensembles} with uncertainty quantification ($\sigma$), k-NN applicability domain (OOD) estimation, and Bemis-Murcko scaffold splits to prevent data leakage and ensure generalization.
+
+        \item Implemented high-performance multi-service architecture: a \textbf{Rust (Axum)} orchestration API with \textbf{PostgreSQL/pgvector} literature RAG retrieval, a \textbf{FastAPI} inference engine, and a \textbf{Next.js} analytics interface.
+
+    \end{itemize}
+
+
+    \item \textbf{Chunking in Chess using Python}\ \hfill [January '25 - April '25] \\
+    \textit{Prof. Krishna Prasad Miyapuram, IIT Gandhinagar}
+    \\[-0.7cm]
+
+    \begin{itemize}\itemsep \isep
+
+        \item Defined cognitive move chunks using \textbf{Elapsed Move Time (EMT)} signals extracted from PGN archives, operationalizing the initial think-time pause as the boundary between sequential chunks for players rated 2000+ on Lichess.
+
+        \item Implemented a novel game-phase segmentation algorithm comparing \textbf{Moving Average, EMA, Standard Deviation, Coefficient of Variation, K-Means clustering, KNN, Random Forest, SVM, and ARIMA} methods to demarcate opening, middlegame, and endgame boundaries from pooled EMT data.
+
+        \item Correlated chunk-size distributions and EMT patterns against player \textbf{Elo ratings}, cross-validated with \textbf{Stockfish centipawn-loss and win-probability} evaluation to measure decision quality across game phases.
+
+    \end{itemize}
+
+\end{itemize}
+
+
+%===========================================================
+% TECHNICAL PROJECTS
+%===========================================================
+
+\indent\resheading{\textbf{TECHNICAL PROJECTS}}
+\vspace{-0.5cm}
+
+\begin{itemize}\itemsep \isep
+
+
+%-----------------------------------------------------------
+% YOURCODE
+%-----------------------------------------------------------
+
+    \item \textbf{YourCode - Terminal Coding Agent} \underline{\href{https://github.com/devvrat-hans/yourcode}{[GitHub]}} \underline{\href{https://yourcode.space}{[Live Website]}}\ \hfill [2026 - Present]\\[-0.7cm]
+
+    \begin{itemize}\itemsep \isep
+
+        \item Building an open-source \textbf{terminal-based coding agent} designed to let developers write code, manage development sessions, and interact with an AI-assisted coding workflow directly from the terminal.
+
+        \item Architected the project as a modular \textbf{monorepo} separating the \textbf{CLI, server, database, and shared} packages, enabling independent development of the developer interface, backend services, persistence layer, and shared abstractions.
+
+        \item Designed the product around a \textbf{terminal-first developer experience}, eliminating browser/Electron dependencies while supporting persistent coding sessions and customizable terminal themes.
+
+        \item Implemented a \textbf{client-side distributed tool execution runtime} where the backend streams tool-call specifications (file reads, grep/glob searches, shell commands) but all execution runs locally within strict \texttt{process.cwd()} path-confinement boundaries, ensuring proprietary source code never leaves the developer's machine.
+        
+    \end{itemize}
+
+
+%-----------------------------------------------------------
+% CONTROLPLANE AI
+%-----------------------------------------------------------
+
+    \item \textbf{ControlPlane.ai - Real-Time AI Governance Proxy} \underline{\href{https://github.com/devvrat-hans/controlplane-ai}{[GitHub]}}\ \hfill [2026] \\
+    \textit{Accenture Innovation Challenge 2026 (Team Leader) -- National Top 10 (3,000+ Teams) \& PPO Recipient}
+    \\[-0.7cm]
+
+    \begin{itemize}\itemsep \isep
+
+        \item Led the team in the \textbf{Accenture Innovation Challenge 2026} (Problem Statement 1: "Reinvent with AI") to rank in the \textbf{National Top 10 out of 3,000+ teams} across India's top 20 premier institutions, securing a \textbf{Pre-Placement Offer (PPO)}; architected a sub-10ms reverse-proxy AI governance layer between client applications and LLMs.
+
+        \item Engineered a synchronous \textbf{fast path in Rust (<10ms)} using Hyper and lock-free policy caching (\texttt{arc-swap}) for regex/entropy secret detection, tiered cost cap enforcement (block, escalate, edit), retry-loop detection, and session risk tracking.
+
+        \item Implemented an asynchronous \textbf{shadow path (<2s)} with 13 automated checks spanning DeepEval hallucination scoring, NLI groundedness, Presidio PII detection, LLM Guard toxicity/bias filtering, and 3-layer prompt injection detection.
+
+        \item Designed a resilient architecture with a \textbf{fail-open guarantee}, a SHA-256 hash-chained audit ledger in PostgreSQL, an escalation queue for human review, and a real-time Next.js 16 SSE dashboard.
+
+    \end{itemize}
+
+
+%-----------------------------------------------------------
+% BLINDDROP
+%-----------------------------------------------------------
+
+    \item \textbf{BlindDrop - Privacy-Focused File Transfer Portal} \underline{\href{https://github.com/devvrat-hans/CS-432-2026/tree/main/blinddrop}{[GitHub]}} \underline{\href{https://blinddrop.vercel.app/}{[Live Website]}}\ \hfill [2026]\\[-0.7cm]
+
+    \begin{itemize}\itemsep \isep
+
+        \item Built a privacy-focused \textbf{anonymous file-transfer system} enabling users to upload files without authentication, receive one-time 6-character download codes, and automatically delete files after download or expiry.
+
+        \item Architected a \textbf{Next.js + TypeScript + Tailwind CSS frontend} with a \textbf{Flask REST API backend}, implementing upload/download workflows, admin dashboards, authentication, audit logs, transfer statistics, and database-management interfaces.
+
+        \item Implemented \textbf{hash-based horizontal sharding across three SQLite databases} using \texttt{MD5(sessionID) \% 3}, with shard-aware query routing, scatter-gather token lookup, integrity verification, and dedicated sharded/unsharded table management.
+
+        \item Built secure file lifecycle management using \textbf{UUID-based storage, SHA-256 integrity checks, configurable expiry, background cleanup, one-time token consumption, rate limiting, security headers, and no-store caching}, supporting files up to 100 MB.
+
+    \end{itemize}
+
+
+%-----------------------------------------------------------
+% ALGO TRADING BOT
+%-----------------------------------------------------------
+
+    \item \textbf{Algorithmic Trading Bot - Upstox} \underline{\href{https://github.com/devvrat-hans/algo-trading-bot}{[Project Link]}}\ \hfill [2024 - 2025]\\[-0.7cm]
+
+    \begin{itemize}\itemsep \isep
+
+        \item Developed a modular \textbf{Python-based algorithmic trading bot} for live trading on the \textbf{Upstox API}, separating account connectivity, market data, strategy generation, order execution, and trade orchestration.
+
+        \item Implemented dedicated modules for \textbf{historical/live market data, trading signals, order execution, option expiry and instrument discovery, and automated trade management}.
+
+        \item Built configurable risk controls for \textbf{stop-loss, take-profit, maximum trades per day, and maximum daily loss}, with strategy modularization supporting algorithms such as EMA crossover.
+
+    \end{itemize}
+
+
+%-----------------------------------------------------------
+% ADANI FINTELL SUITE
+%-----------------------------------------------------------
+
+    \item \textbf{Adani FinTell Suite - Enterprise Invoice \& Compliance Platform} \underline{\href{https://github.com/devvrat-hans/adani-fintell-suite}{[GitHub]}}\ \hfill [Finnovate Hack 2025] \\
+    \textit{IIT Gandhinagar \& Adani Enterprises (Team Leader \& Runner-Up)}
+    \\[-0.7cm]
+
+    \begin{itemize}\itemsep \isep
+
+        \item Led the runner-up team at the \textbf{Adani Finnovate Hackathon 2025}, building an AI-powered financial intelligence and automated invoice auditing platform for enterprise procurement.
+
+        \item Built an intelligent document processing pipeline using \textbf{Google Gemini AI}, achieving \textbf{80\%+ extraction accuracy} across multi-format invoices (PDF, PNG, JPEG) with single and bulk upload capabilities (up to 50 invoices).
+
+        \item Implemented end-to-end compliance verification including \textbf{real-time GST portal verification}, HSN/SAC regulatory tax rate validation, arithmetic accuracy checks, and AI-derived price anomaly benchmarking against market rates.
+
+        \item Developed interactive analytics interfaces including a processing pipeline timeline modal, an anomalies dashboard for duplicate and fraud detection, and a conversational AI analytics assistant.
+
+    \end{itemize}
+
+
+%-----------------------------------------------------------
+% MACHINE LEARNING PROJECTS
+%-----------------------------------------------------------
+
+    \item \textbf{Machine Learning Projects}
+    \\[-0.7cm]
+
+    \begin{itemize}\itemsep \isep
+
+
+        \item \textbf{Poetic Text Generator}
+        \underline{\href{https://github.com/devvrat-hans/Poetic-Text-Generator-using-RNN}{[Project Link]}}
+        \\[-0.5cm]
+
+        \begin{itemize}\itemsep \isep
+
+            \item Developed an RNN-based \textbf{LSTM text-generation model} for generating poetic text from sequential training data.
+
+            \item Implemented \textbf{character-level tokenization and sequence modeling} to learn relationships between characters and generate new text.
+
+            \item Added \textbf{temperature-controlled sampling} to control generation randomness and produce varied outputs.
+
+        \end{itemize}
+
+
+        \item \textbf{Plant Disease Detection Model}
+        \underline{\href{https://github.com/devvrat-hans/Plant-Disease-Detection}{[Project Link]}}
+        \\[-0.5cm]
+
+        \begin{itemize}\itemsep \isep
+
+            \item Developed a \textbf{CNN-based multi-class image classification system} for detecting plant diseases from leaf images.
+
+            \item Trained the model using the \textbf{PlantVillage dataset} with \textbf{TensorFlow and Keras}.
+
+            \item Built the classification and evaluation pipeline to identify disease categories and assess model performance across classes.
+
+        \end{itemize}
+
+
+        \item \textbf{Generating Handwritten Images}
+        \underline{\href{https://github.com/devvrat-hans/Generating-Handwritten-Digit-Images}{[Project Link]}}
+        \\[-0.5cm]
+
+        \begin{itemize}\itemsep \isep
+
+            \item Implemented a \textbf{Deep Convolutional Generative Adversarial Network (DCGAN)} for generating handwritten digit images.
+
+            \item Developed separate \textbf{generator and discriminator architectures} using TensorFlow and Keras.
+
+            \item Trained the model on the \textbf{MNIST dataset} and evaluated progressive image synthesis to generate realistic digit samples.
+
+        \end{itemize}
+
+
+        \item \textbf{Customer Churn Prediction Model}
+        \underline{\href{https://github.com/devvrat-hans/Customer-Churn-Prediction-Model/}{[Project Link]}}
+        \\[-0.5cm]
+
+        \begin{itemize}\itemsep \isep
+
+            \item Developed a \textbf{customer churn prediction system} using supervised machine learning on structured customer data.
+
+            \item Applied \textbf{SMOTE} for class balancing and trained a \textbf{Random Forest} classifier to predict customer churn.
+
+            \item Serialized preprocessing encoders and model components to support \textbf{real-time inference} on new customer records.
+
+        \end{itemize}
+
+
+        \item \textbf{Autism Prediction Model}
+        \underline{\href{https://github.com/devvrat-hans/Autism-Prediction-Model/}{[Project Link]}}
+        \\[-0.5cm]
+
+        \begin{itemize}\itemsep \isep
+
+            \item Developed a machine-learning-based \textbf{ASD prediction system} using structured healthcare-related features.
+
+            \item Evaluated \textbf{Decision Tree, Random Forest, and XGBoost} models with SMOTE-based class balancing.
+
+            \item Applied \textbf{data preprocessing, exploratory data analysis, hyperparameter tuning, cross-validation, and model evaluation} to compare model performance.
+
+        \end{itemize}
+
+
+        \item \textbf{Twitter Sentiment Analysis Model}
+        \underline{\href{https://github.com/devvrat-hans/Twitter-Sentiment-Analysis/}{[Project Link]}}
+        \\[-0.5cm]
+
+        \begin{itemize}\itemsep \isep
+
+            \item Developed a \textbf{Logistic Regression-based NLP classifier} to classify tweets as positive or negative.
+
+            \item Built a text-classification pipeline involving \textbf{text preprocessing and feature representation} for supervised learning.
+
+            \item Achieved \textbf{77.67\% test accuracy} on the sentiment classification task.
+
+        \end{itemize}
+
+
+    \end{itemize}
+
+\end{itemize}
+
+
+%===========================================================
+% WEB DEVELOPMENT PROJECTS
+%===========================================================
+
+\indent\resheading{\textbf{WEB DEVELOPMENT PROJECTS}}
+\vspace{-0.5cm}
+
+\begin{itemize}\itemsep \isep
+
+
+%-----------------------------------------------------------
+% BOEING BUILD
+%-----------------------------------------------------------
+
+    \item \textbf{Boeing BUILD 2026 Website} \underline{\href{https://iieciitgn.com/build2026/}{[Live Website]}}\ \hfill [2026]\\[-0.7cm]
+
+    \begin{itemize}\itemsep \isep
+
+        \item Designed and developed the official \textbf{Boeing BUILD 2026 India}
+        website, translating the program's requirements into a polished public-facing
+        digital experience.
+
+        \item Built responsive interfaces for \textbf{program information, event details,
+        application workflows, schedules, and participant-facing content}, ensuring
+        consistent usability across desktop and mobile devices.
+
+        \item Managed the implementation and delivery of the website end-to-end,
+        collaborating with stakeholders to translate requirements into production-ready
+        web functionality.
+
+    \end{itemize}
+
+
+%-----------------------------------------------------------
+% RESEARCH PARK
+%-----------------------------------------------------------
+
+    \item \textbf{Research Park Website - IIT Gandhinagar} \underline{\href{https://iitgnrp.com}{[Live Website]}}\ \hfill [June '25 - December '25]\\[-0.7cm]
+
+    \begin{itemize}\itemsep \isep
+
+        \item Designed and contributed to the official \textbf{IIT Gandhinagar
+        Research Park} website, presenting its industry-academia collaboration
+        ecosystem, infrastructure, services, partners, and success stories.
+
+        \item Developed responsive interfaces for sections covering
+        \textbf{industry partnerships, consultancy projects, laboratory infrastructure,
+        faculty collaboration, internships, IP transfer, and events}.
+
+        \item Focused on \textbf{navigation, institutional branding, responsive design,
+        and performance}, delivering a polished web presence for an institutional
+        research and innovation platform.
+
+    \end{itemize}
+
+
+%-----------------------------------------------------------
+% CHESS WEBSITE
+%-----------------------------------------------------------
+
+    \item \textbf{Chess Website of IIT Gandhinagar} \underline{\href{https://github.com/devvrat-hans/Chess-IITGN}{[Project Link]}}\ \hfill [December '24 - February '25]\\[-0.7cm]
+
+    \begin{itemize}\itemsep \isep
+
+        \item Developed and maintain the official web platform for the
+        \textbf{IIT Gandhinagar chess community}, consolidating campus chess events,
+        announcements, registrations, and resources.
+
+        \item Implemented dedicated workflows for \textbf{event listings,
+        competition registration, announcements, gallery management,
+        and contact information}.
+
+        \item Built the frontend using \textbf{HTML, CSS, and JavaScript},
+        including interactive form handling and dynamic event updates with a
+        responsive, user-friendly interface.
+
+    \end{itemize}
+
+
+%-----------------------------------------------------------
+% ZERO WASTE GUJARAT
+%-----------------------------------------------------------
+
+    \item \textbf{Zero Waste Gujarat Website} \underline{\href{https://zerowastegujarat.com}{[Live Website]}}\ \hfill [2024 - Present]\\[-0.7cm]
+
+    \begin{itemize}\itemsep \isep
+
+        \item Designed and developed the website for \textbf{Zero Waste Gujarat},
+        a textile waste-to-value initiative focused on recycling discarded fabrics
+        into recycled fiber, sustainable nonwovens, eco-friendly packaging,
+        and carbon-credit solutions.
+
+        \item Built the platform using \textbf{Next.js} with
+        \textbf{server-side rendering (SSR)} to support SEO, performance,
+        and discoverability.
+
+        \item Implemented responsive interfaces communicating the organization's
+        \textbf{textile collection, processing, manufacturing, carbon-credit,
+        and sustainability initiatives}.
+
+    \end{itemize}
+
+
+%-----------------------------------------------------------
+% TOONIFYIT
+%-----------------------------------------------------------
+
+    \item \textbf{ToonifyIt - JSON to TOON Converter} \underline{\href{https://toonifyit.com}{[Live Website]}}\ \hfill [2025 - Present]\\[-0.7cm]
+
+    \begin{itemize}\itemsep \isep
+
+        \item Built and launched an independent \textbf{LLM developer tool} that converts
+        JSON to \textbf{TOON (Token-Oriented Object Notation)} for more token-efficient
+        representation of structured data in LLM workflows.
+
+        \item Developed a real-time, browser-based conversion engine supporting
+        \textbf{JSON $\leftrightarrow$ TOON conversion}, configurable delimiters and
+        indentation, length markers, token-count comparison, and copy/download workflows.
+
+        \item Designed the application around \textbf{client-side processing and privacy},
+        keeping user data on-device while supporting structured data such as tabular datasets,
+        API responses, and large JSON payloads for LLM prompts.
+
+    \end{itemize}
+
+
+%-----------------------------------------------------------
+% VARDHAMAN
+%-----------------------------------------------------------
+
+    \item \textbf{Vardhaman Agencies Website} \underline{\href{https://vardhamanagencies.in}{[Live Website]}}\ \hfill [2024 - 2025]\\[-0.7cm]
+
+    \begin{itemize}\itemsep \isep
+
+        \item Built the official B2B/B2C website for \textbf{Vardhaman Agencies},
+        a packaging-solutions business serving customers across India.
+
+        \item Developed product-focused interfaces for \textbf{bubble wrap rolls,
+        stretch films, custom packaging solutions, product discovery,
+        and quotation workflows}.
+
+        \item Implemented a responsive frontend with \textbf{React.js},
+        modular components, product navigation, search functionality,
+        and mobile-friendly layouts.
+
+    \end{itemize}
+
+
+\end{itemize}
+
+
+%===========================================================
+% SKILLS SUMMARY
+%===========================================================
+
+\indent\resheading{\textbf{SKILLS SUMMARY}}
+\vspace{-0.5cm}
+
+\begin{itemize} \itemsep \isep
+
+    \item \textbf{Languages:} Python, C, C++, Java, Rust, SQL, JavaScript, TypeScript, HTML, CSS
+
+    \item \textbf{Frameworks \& Libraries:} React.js, Next.js, Tailwind CSS, Angular, RxJS, Spring Boot, FastAPI, Axum, Flask, Google ADK, NumPy, Pandas, Scikit-learn, TensorFlow, Keras, PyTorch
+
+    \item \textbf{AI / ML / LLM:} AI Governance, Machine Learning, Deep Learning, NLP, Computer Vision, LLMs, RAG, Agentic AI, Prompt Engineering, Gemini, Vector Retrieval, AI Agents
+
+    \item \textbf{Databases \& ORMs:} PostgreSQL, MongoDB, MySQL, SQLite, SQLx, Prisma
+
+    \item \textbf{Cloud \& Infrastructure:} Google Cloud Platform, Cloud Run, Cloud Build, Cloud SQL, Vertex AI, Docker, GCP IAM
+
+    \item \textbf{Security \& Systems:} Authentication, Authorization, RBAC, PII Masking, Prompt Injection Detection, SQL AST Validation, BYOK, REST APIs, Microservices, SSE, API Security
+
+    \item \textbf{Tools:} Git, GitHub, Linux/Unix Shell, Bash, VS Code, Jupyter Notebook, Google Colab, MATLAB, Postman
+
+    \item \textbf{Quantitative / Trading:} Algorithmic Trading, Backtesting, Live Trading, Brokerage APIs, Trading Strategies, Risk Management
+
+    \item \textbf{Interpersonal Skills:} Teamwork, Technical Leadership, Cross-Functional Communication, Problem Solving
+
+\end{itemize}
+
+
+%===========================================================
+% RELEVANT COURSES
+%===========================================================
+
+\indent\resheading{\textbf{RELEVANT COURSES}}
+\vspace{-0.5cm}
+
+\begin{itemize} \itemsep \isep
+
+    \item \textbf{Computer Science Core:} Data Structures and Algorithms I (ES 242), Operating Systems (CS 330), Computer Networks (CS 331), Databases (CS 432), Compilers (CS 327), Theory of Computing (CS 201), Digital Systems (ES 204), Software Tools and Techniques for CSE (CS 202), Computing (ES 112)
+
+    \item \textbf{AI, Data Science \& Cognition:} Foundations of AI: Multiagent Systems (CS 329), Introduction to Data Science (CS 328), Software Tools \& Techniques for AI (CS 203), Data-Centric Computing (ES 113), Computation and Cognition (CG 501)
+
+    \item \textbf{Mathematics \& Statistics:} Discrete Mathematics (ES 214), Probability, Statistics, and Data Visualization (ES 114), Calculus of Single Variable and Linear Algebra (MA 103), Calculus of Several Variables (MA 205), Ordinary Differential Equations (MA 104), Numerical Methods (MA 203)
+
+    \item \textbf{Management, Economics \& Engineering:} Business, Organization \& Finance (MS 491-XIII), Laboratory in Entrepreneurial Motivation (MS 491-VIII), International Marketing (MS 492-VII), Neuromarketing (MS 404), Economics (HS 151), Competitiveness and Ethical Leadership (HS 392), Design, Innovation, and Prototyping (ES 115), Bionanotechnology (BE 303)
+
+\end{itemize}
+
+
+%===========================================================
+% ACHIEVEMENTS
+%===========================================================
+
+\indent\resheading{\textbf{ACHIEVEMENTS}}
+\vspace{-0.5cm}
+
+\begin{itemize} \itemsep \isep
+
+    \item \textbf{National Top 10 \& PPO Recipient, Accenture Innovation Challenge 2026} (Team Leader): Ranked in the top 10 out of 3,000+ teams across India's top 20 premier colleges; awarded a Pre-Placement Offer (PPO) for architecting ControlPlane.ai, a sub-10ms dual-path AI governance proxy.
+
+    \item Team Leader \& Runner-Up, \textbf{Adani Finnovate Hackathon 2025} (IITGN \& Adani Enterprises): Led a 4-member team to build an AI-powered enterprise invoice compliance platform with real-time GST validation and Gemini OCR.
+
+    \item Awarded \textbf{Dean's List} for academic excellence in Semester I (Academic Year 2023-24) at IIT Gandhinagar.
+
+    \item Secured \textbf{All India Rank 1505} (top 1\% out of 1,80,372+ candidates) in \textbf{JEE Advanced 2023} to pursue Computer Science and Engineering at IIT Gandhinagar.
+
+    \item Secured \textbf{99.65 percentile} in \textbf{JEE Main 2023} among more than 1.2 million candidates.
+
+    \item \textbf{Revive \& Thrive}: Achieved Rank 2 in the institute-level competition at IIT Gandhinagar.
+
+    \item Qualified \textbf{NTSE Stage 1} (National Talent Search Examination) from Haryana State.
+
+    \item Awarded multiple gold and silver medals in district- and state-level \textbf{SOF Olympiads}.
+
+    \item Top Ranks in National Aptitude \& Scholarship Tests: \textbf{AIR 3} in FTRE, \textbf{AIR 6} in FIITJEE Big Bang Edge, \textbf{AIR 11} in VMC Entrance Exam, and \textbf{AIR 54} in Tallentex.
+
+    \item Generated over \textbf{100K organic impressions} via SEO and data-driven editorial strategies on a self-published finance blog with a primary US/UK readership.
+
+\end{itemize}
+
+
+%===========================================================
+% POSITIONS OF RESPONSIBILITY
+%===========================================================
+
+\indent\resheading{\textbf{POSITIONS OF RESPONSIBILITY}}
+\vspace{-0.5cm}
+
+\begin{itemize} \itemsep \isep	
+
+    \item \textbf{Senior Tech Team, Entrepreneurship Initiative, IIT Gandhinagar} \hfill [2026 - Present]\\[-0.7cm]
+    \begin{itemize}\itemsep \isep
+        \item Contributing to technical initiatives, digital infrastructure, and technology-driven activities within IIT Gandhinagar's entrepreneurship ecosystem.
+    \end{itemize}
+
+    \item \textbf{Web Development Team, Tinkerers' Lab, IITGN} \hfill [2025 - Present]\\[-0.7cm]
+    \begin{itemize}\itemsep \isep
+        \item Contributed to development and maintenance of web infrastructure and digital platforms supporting IITGN's student maker and technology community.
+    \end{itemize}
+
+    \item \textbf{Webmaster, Student Academic Council, IITGN} \hfill [July '25 - Present]\\[-0.7cm]
+    \begin{itemize}\itemsep \isep
+        \item Maintained and regularly updated the official Student Academic Council website, ensuring good website speed, reliable functionality, and a smooth user experience.
+    \end{itemize}
+
+    \item \textbf{Senior Marketing Executive, EII, IITGN} \hfill [October '24 - February '25]\\[-0.7cm]
+    \begin{itemize}\itemsep \isep
+        \item Increased outreach by optimizing social media strategies and engaging a broader audience.
+        \item Led the LinkedIn team to enhance the EII's digital presence, successfully increasing engagement and reach.
+    \end{itemize}
+
+    \item \textbf{Senior Events Executive, Amalthea, IITGN} \hfill [April '24 - November '24]\\[-0.7cm]
+    \begin{itemize}\itemsep \isep
+        \item Organized pre-events to promote chess within the IIT Gandhinagar campus, driving interest and participation in the larger Amalthea summit.
+        \item Managed logistics and collaborated with multiple teams to ensure the smooth execution of events.
+    \end{itemize}
+
+    \item \textbf{Organizer, Kautilya Chess League, IITGN} \hfill [March '24 - April '24]\\[-0.7cm]
+    \begin{itemize}\itemsep \isep
+        \item Successfully organized a week-long chess league involving more than 80 players across 6 competitive teams.
+        \item Fostered a culture of intellectual engagement and sportsmanship, attracting participants from diverse backgrounds.
+    \end{itemize}
+
+    \item \textbf{Organizer, Triunity Chess, Hallabol, IITGN} \hfill [February '24]\\[-0.7cm]
+    \begin{itemize}\itemsep \isep
+        \item Introduced a unique 3-player chess variant to foster innovative thinking and promote chess culture within the campus.
+        \item Successfully engaged students through this novel approach, enhancing interest in strategic gameplay.
+    \end{itemize}
+
+    \item \textbf{Founder, Finimoney.com} \hfill [June '23 - May '24]\\[-0.7cm]
+    \begin{itemize}\itemsep \isep
+        \item Founded and managed an independent finance blog targeting a US/UK readership, applying data-driven editorial and SEO strategies to grow an international audience.
+        \item Developed domain expertise in personal finance, investment analysis, and content monetization through consistent long-form publishing.
+    \end{itemize}
+
+    \item \textbf{Marketing Team Member, Amalthea, IITGN} \hfill [September '23 - April '24]\\[-0.7cm]
+    \begin{itemize}\itemsep \isep
+        \item Collaborated with a team to execute outreach strategies targeting students and industry professionals to increase participation in the event.
+    \end{itemize}
+
+\end{itemize}
+
+
+%===========================================================
+% EXTRA-CURRICULAR ACTIVITIES
+%===========================================================
+
+\indent\resheading{\textbf{EXTRA-CURRICULAR ACTIVITIES}}
+\vspace{-0.5cm}
+
+\begin{itemize}
+
+    \item Playing Chess 
+    \vspace{-0.3cm}
+
+    \begin{itemize} \itemsep \isep
+        \item FIDE Rating: 1437 (Rapid)
+        \item Chess.com Rating: 1938 Rapid (Peak)
+    \end{itemize}
+
+    \item Competitive Programming
+    \vspace{-0.3cm}
+
+    \begin{itemize} \itemsep \isep
+        \item Codeforces Rating: 1200+ \ $|$\ \underline{\href{https://codeforces.com/profile/droll}{Codeforces ID}} 
+        \item LeetCode Rating: 1500+ \ $|$\ \underline{\href{https://leetcode.com/droll/}{LeetCode ID}}
+    \end{itemize}
+
+\end{itemize}
+
+
+%===========================================================
+% COURSES AND CERTIFICATIONS
+%===========================================================
+
+\indent\resheading{\textbf{COURSES AND CERTIFICATIONS}}
+\vspace{-0.5cm}
+
+\begin{itemize} \itemsep \isep
+
+    \item SEBI - Investor Certification Examination (issued by National Institute of Securities Markets (NISM))
+
+    \item SEO Training Masterclass 2024: Beginner To Advanced SEO (issued by Udemy)
+
+    \item Finlatics Certified Investment Banking Experience Program (issued by Finlatics)
+
+    \item Business and Finance (issued by IBM)
+
+    \item Mathematical Optimization for Business Problems (issued by IBM)
+
+    \item What Is Generative AI? (issued by LinkedIn)
+
+    \item What Is Business Analysis? (issued by LinkedIn)
+
+    \item Ashurst UK - Building Your Personal Brand Job Simulation (issued by Forage)
+
+    \item BCG - Introduction to Strategy Consulting Job Simulation (issued by Forage)
+
+    \item White \& Case - Project Finance Job Simulation (issued by Forage)
+
+    \item HSBC - Commercial Banking Job Simulation (issued by Forage)
+
+    \item Leadership Skills (issued by Coursera)
+
+    \item Pre-MBA Statistics (issued by Coursera)
+
+\end{itemize}
+
+
+\end{document}

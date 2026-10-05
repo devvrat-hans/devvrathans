@@ -1,0 +1,3 @@
+# Local dev secrets for `bun run worker:dev` (gitignored). Never deployed.
+# Copy the same token used by the build script in scripts/fetch-github-charts.mjs.
+GITHUB_TOKEN=ghp_replace_me

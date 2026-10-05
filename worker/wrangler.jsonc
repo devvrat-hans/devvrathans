@@ -1,0 +1,41 @@
+{
+	// GitHub contribution heatmap data feed.
+	//
+	// One-time setup (see worker/README.md):
+	//   bunx wrangler kv namespace create GITHUB_CHARTS   -> copy the printed id below
+	//   bunx wrangler secret put GITHUB_TOKEN
+	//   bun run worker:deploy
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "devvrathans-charts",
+	"main": "src/index.ts",
+	"compatibility_date": "2026-08-01",
+	"workers_dev": true,
+	// Daily at 05:00 UTC. Contributions land throughout the day, so a late-night
+	// refresh captures the previous day in full.
+	"triggers": {
+		"crons": [
+			"0 5 * * *"
+		]
+	},
+	// "remote" only affects `wrangler dev`, never `wrangler deploy`:
+	// false = local dev uses an isolated local KV, so testing cannot overwrite live data.
+	// `wrangler deploy` rewrites this file and may set it back to true - flip it to false again.
+	"kv_namespaces": [
+		{
+			"binding": "GITHUB_CHARTS",
+			"id": "41f0a682a4604ef49d43f15bfcfcdfe9",
+			"remote": false
+		}
+	],
+	// Serves the heatmap JSON from devvrathans.com/github-contributions.json, taking that path
+	// ahead of the static file Cloudflare Pages would otherwise serve.
+	"routes": [
+		{
+			"pattern": "devvrathans.com/github-contributions.json",
+			"zone_name": "devvrathans.com"
+		}
+	],
+	"observability": {
+		"enabled": true
+	}
+}

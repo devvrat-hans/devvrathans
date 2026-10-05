@@ -6,9 +6,17 @@ export function generateStaticParams() {
   return posts.map((post) => ({ slug: post.slug }));
 }
 
-export function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const post = getPostBySlug(slug);
+
+  if (!post) {
+    return { title: "Blog - Devvrat Hans" };
+  }
+
   return {
-    title: "Blog - Devvrat Hans",
+    title: `${post.title} - Devvrat Hans`,
+    description: post.excerpt,
   };
 }
 

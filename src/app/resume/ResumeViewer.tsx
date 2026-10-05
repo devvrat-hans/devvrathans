@@ -47,7 +47,7 @@ const DOCS: Record<DocType, DocInfo> = {
       "B.Tech CSE at IIT Gandhinagar (CPI: 8.30, AIR 1505 JEE Adv, 99.65%ile JEE Main)",
       "Software Engineering Intern at Intentyfi (Rust, Axum, RAG, Case Management App, HITL)",
       "Founder's Office at Aback.ai (AbackTools.com ~500 DAU, AI Recruitment, Invoice ERP)",
-      "Accenture Innovation Challenge '26 Team Leader (ControlPlane.ai <10ms Rust proxy)",
+      "Accenture Innovation Challenge '26 Team Leader - National Top 10 (3,000+ teams) & PPO (ControlPlane.ai <10ms Rust proxy)",
       "Adani Finnovate Hackathon '25 Runner-Up (Gemini AI Invoice & Compliance Platform)",
       "YourCode (Open-Source Terminal Coding Agent & Local Execution Engine)",
     ],

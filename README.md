@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# devvrathans.com
 
-## Getting Started
+Personal site for Devvrat Hans — portfolio, resume/CV, project catalogue, blog, and a GitHub
+contribution heatmap. Static Next.js export deployed to Cloudflare Pages, plus a small Cloudflare
+Worker that keeps the heatmap data fresh.
 
-First, run the development server:
+## Stack
+
+Next.js 16 (App Router, `output: "export"`) · React 19 · TypeScript · Tailwind CSS v4 ·
+framer-motion · SWR · markdown-it + gray-matter for the blog.
+
+## Commands
+
+| Command | What it does |
+|---|---|
+| `bun run dev` | Local dev server |
+| `bun run build` | Regenerates OG image + heatmap snapshot, then static export to `out/` |
+| `bun run typecheck` | Typechecks the app and the Worker |
+| `bun run lint` | ESLint (has pre-existing style errors; see below) |
+| `bun run deploy` | Publishes `out/` to Cloudflare Pages |
+| `bun run charts:refresh` | Refreshes `public/github-contributions.json` only |
+| `bun run worker:dev` / `worker:deploy` / `worker:tail` | Cloudflare Worker for the heatmap feed |
+
+## Deployment
+
+Full step-by-step runbook (first-time Cloudflare setup, Worker, verification, troubleshooting):
+**[DEPLOY.md](DEPLOY.md)**.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+bun run build && bun run deploy
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The build script needs `GITHUB_TOKEN` (scope `read:user`) in `.env.local` so the heatmap snapshot
+includes private contributions. Without it the build still succeeds and ships the last cached
+snapshot.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## GitHub heatmap
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The heatmap reads `/github-contributions.json`. In production that path is served by a Cloudflare
+Worker that refreshes the data on a daily cron, so the heatmap updates without redeploying. Setup
+and routing steps are in [`worker/README.md`](worker/README.md). Without the Worker the site falls
+back to the build snapshot, then to a public-only API.
 
-## Learn More
+## Content
 
-To learn more about Next.js, take a look at the following resources:
+- Blog posts: `content/blog/*.md` (frontmatter: title, date, tags, excerpt)
+- Portfolio copy: `src/components/*.tsx`
+- Resume/CV PDFs: `public/resume.pdf`, `public/cv.pdf` (served from `/resume`)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Known lint state
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+`bun run lint` currently reports 11 errors, all pre-existing and unrelated to any single feature:
+`react/jsx-no-comment-textnodes` on explanatory JSX comments and `react-hooks/set-state-in-effect`
+in `ThemeProvider`/blog pages.

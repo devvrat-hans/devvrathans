@@ -13,7 +13,15 @@ interface Contribution {
 interface ContributionData {
   total?: { lastYear: number };
   contributions: Contribution[];
+  /** ISO timestamp of when the Worker last refreshed the data. */
+  fetchedAt?: string;
 }
+
+// In order of freshness: the Worker feed (refreshed daily), the snapshot baked into
+// the build by scripts/fetch-github-charts.mjs, then the public-only fallback API.
+// Set NEXT_PUBLIC_GITHUB_CHARTS_URL at build time if the Worker is not served from
+// the same origin (e.g. https://<worker>.workers.dev).
+const CHARTS_URL = process.env.NEXT_PUBLIC_GITHUB_CHARTS_URL ?? "/github-contributions.json";
 
 const LEVEL_COLORS = [
   "bg-canvas-soft border-hairline",
@@ -25,21 +33,35 @@ const LEVEL_COLORS = [
 
 const MONTH_LABELS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 
+// Stable empty reference so the stats memo below is not invalidated on every render
+// while the data is still loading.
+const EMPTY_CONTRIBUTIONS: Contribution[] = [];
+
+const isUsable = (data: unknown): data is ContributionData =>
+  Array.isArray((data as ContributionData)?.contributions) &&
+  (data as ContributionData).contributions.length > 0;
+
+/** "Oct 5" — the day the Worker last refreshed the data. Undefined when unknown. */
+const formatFetchedAt = (fetchedAt?: string): string | undefined => {
+  if (!fetchedAt) return undefined;
+  const parsed = new Date(fetchedAt);
+  if (Number.isNaN(parsed.getTime())) return undefined;
+  return parsed.toLocaleDateString(undefined, { month: "short", day: "numeric" });
+};
+
 const fetchContributions = async (): Promise<ContributionData> => {
-  // 1. Try local static file first (includes private contributions fetched via build script)
+  // 1. Worker feed - refreshed daily by its cron trigger, includes private contributions
   try {
-    const res = await fetch("/github-contributions.json");
+    const res = await fetch(CHARTS_URL);
     if (res.ok) {
       const data = await res.json();
-      if (data?.contributions && data.contributions.length > 0) {
-        return data;
-      }
+      if (isUsable(data)) return data;
     }
   } catch (err) {
-    console.warn("Could not load /github-contributions.json, trying fallback", err);
+    console.warn(`Could not load ${CHARTS_URL}, trying fallback`, err);
   }
 
-  // 2. Fallback to public contributions API if local file is missing
+  // 2. Public contributions API, used when neither the Worker nor the build snapshot exists
   const fallback = await fetch(
     "https://github-contributions-api.jogruber.de/v4/devvrat-hans?y=last"
   );
@@ -47,7 +69,13 @@ const fetchContributions = async (): Promise<ContributionData> => {
   return fallback.json();
 };
 
-function ContributionGrid({ contributions }: { contributions: Contribution[] }) {
+function ContributionGrid({
+  contributions,
+  fetchedAt,
+}: {
+  contributions: Contribution[];
+  fetchedAt?: string;
+}) {
   if (!contributions.length) return null;
 
   const weeks: Contribution[][] = [];
@@ -108,6 +136,11 @@ function ContributionGrid({ contributions }: { contributions: Contribution[] }) 
         </div>
         {/* Legend */}
         <div className="flex items-center gap-2 mt-3 justify-end">
+          {fetchedAt && (
+            <span className="text-[10px] font-mono text-mute mr-2">
+              updated {fetchedAt}
+            </span>
+          )}
           <span className="text-[10px] font-mono text-mute">Less</span>
           {LEVEL_COLORS.map((cls, i) => (
             <div key={i} className={`w-[11px] h-[11px] rounded-[2px] border ${cls}`} />
@@ -144,10 +177,14 @@ export default function GitHubActivity() {
   const { data, error } = useSWR("github-contributions", fetchContributions, {
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
+    // The Worker refreshes once a day; an hourly revalidation keeps a long-lived tab current.
+    refreshInterval: 60 * 60 * 1000,
   });
 
-  const contributions: Contribution[] = data?.contributions ?? [];
+  const contributions: Contribution[] = data?.contributions ?? EMPTY_CONTRIBUTIONS;
   const isLoading = !data && !error;
+
+  const formattedFetchedAt = formatFetchedAt(data?.fetchedAt);
 
   const stats = useMemo(() => {
     if (!contributions.length) return null;
@@ -261,7 +298,7 @@ export default function GitHubActivity() {
             <p className="text-sm text-mute font-mono">Could not load contribution data.</p>
           )}
           {!isLoading && !error && (
-            <ContributionGrid contributions={contributions} />
+            <ContributionGrid contributions={contributions} fetchedAt={formattedFetchedAt} />
           )}
         </motion.div>
 

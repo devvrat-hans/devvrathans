@@ -7,6 +7,11 @@
     "build": "node scripts/generate-og.mjs && node scripts/fetch-github-charts.mjs && next build",
     "start": "next start",
     "lint": "eslint",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p worker",
+    "charts:refresh": "node scripts/fetch-github-charts.mjs",
+    "worker:dev": "wrangler dev --config worker/wrangler.jsonc",
+    "worker:deploy": "wrangler deploy --config worker/wrangler.jsonc",
+    "worker:tail": "wrangler tail --config worker/wrangler.jsonc",
     "deploy": "wrangler pages deploy out --project-name=devvrathans --branch=production"
   },
   "dependencies": {
@@ -21,6 +26,7 @@
     "swr": "^2.5.1"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^5.20261005.1",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
