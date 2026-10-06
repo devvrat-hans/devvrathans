@@ -45,9 +45,9 @@ const DOCS: Record<DocType, DocInfo> = {
     bestFor: "Tech Recruiters, SWE / AI Engineering Roles, Fast Review",
     highlights: [
       "B.Tech CSE at IIT Gandhinagar (CPI: 8.30, AIR 1505 JEE Adv, 99.65%ile JEE Main)",
-      "Software Engineering Intern at Intentyfi (Rust, Axum, RAG, Case Management App, HITL)",
+      "Software Engineering Intern at an SF-based stealth startup (Rust, Axum, RAG, Case Management App, HITL)",
       "Founder's Office at Aback.ai (AbackTools.com ~500 DAU, AI Recruitment, Invoice ERP)",
-      "Accenture Innovation Challenge '26 Team Leader - National Top 10 (3,000+ teams) & PPO (ControlPlane.ai <10ms Rust proxy)",
+      "Accenture Innovation Challenge '26 Team Leader, National Top 10 (3,000+ teams) & PPO (ControlPlane.ai <10ms Rust proxy)",
       "Adani Finnovate Hackathon '25 Runner-Up (Gemini AI Invoice & Compliance Platform)",
       "YourCode (Open-Source Terminal Coding Agent & Local Execution Engine)",
     ],
@@ -65,9 +65,9 @@ const DOCS: Record<DocType, DocInfo> = {
       "Complete historical record including all research projects, coursework, multiple internships, extensive project catalog, and leadership positions.",
     bestFor: "Academic Research, R&D Labs, Faculty Review, Deep Background Checks",
     highlights: [
-      "All 4 Internships (Intentyfi, Aback.ai, Trado LEAN Trading Engine, Curlsek Cybersecurity AI)",
-      "Biomaterials AI Research (Prof. Mukesh Dhanka - RDKit, XGBoost ensembles, pgvector)",
-      "Chess Chunking Research (Prof. Krishna Prasad Miyapuram - EMT pause analysis, Stockfish)",
+      "All 4 Internships (SF stealth startup, Aback.ai, Trado LEAN Trading Engine, Curlsek Cybersecurity AI)",
+      "Biomaterials AI Research with Prof. Mukesh Dhanka (RDKit, XGBoost ensembles, pgvector)",
+      "Chess Chunking Research with Prof. Krishna Prasad Miyapuram (EMT pause analysis, Stockfish)",
       "6 Technical Projects + 6 Machine Learning Models + 6 Web Systems",
       "Full coursework catalog: 26 CS core, AI/Data Science, Mathematics & Management courses",
       "9 Positions of Responsibility (EII Senior Tech, SAC Webmaster, Amalthea, Tinkerers' Lab)",
@@ -86,8 +86,8 @@ export default function ResumeViewer() {
 
   return (
     <div className="min-h-screen bg-canvas">
-      <main className="pt-24 sm:pt-28 pb-20 px-4 sm:px-6">
-        <div className="mx-auto max-w-6xl">
+      <main className="pt-24 sm:pt-28 pb-20">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
           {/* Back link */}
           <motion.div
             initial="hidden"
@@ -114,8 +114,10 @@ export default function ResumeViewer() {
             className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-hairline"
           >
             <div>
-              <span className="font-mono text-xs text-accent-cyan tracking-wide uppercase">
-                // credentials
+              <span className="inline-flex items-center gap-3 text-xs font-medium uppercase tracking-[0.16em] text-accent">
+                Credentials
+                <span className="h-px w-6 bg-current opacity-50" aria-hidden="true" />
+                <span className="text-mute">updated Sep 2026</span>
               </span>
               <h1 className="mt-2 text-3xl sm:text-4xl font-semibold tracking-[-0.04em] text-ink-light">
                 Resume &amp; Curriculum Vitae.
@@ -127,10 +129,12 @@ export default function ResumeViewer() {
             </div>
 
             {/* Document Switcher Tabs */}
-            <div className="inline-flex items-center p-1 rounded-xl border border-hairline bg-canvas-soft shrink-0">
+            <div role="tablist" aria-label="Document" className="inline-flex w-full sm:w-auto items-center p-1 border border-hairline bg-canvas-soft shrink-0">
               <button
+                role="tab"
+                aria-selected={activeTab === "resume"}
                 onClick={() => setActiveTab("resume")}
-                className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all ${
+                className={`flex flex-1 sm:flex-none justify-center items-center gap-2 px-4 py-2 text-xs sm:text-sm font-medium transition-all cursor-pointer ${
                   activeTab === "resume"
                     ? "bg-primary text-on-primary shadow-sm"
                     : "text-body hover:text-ink-light hover:bg-canvas-soft-2"
@@ -139,7 +143,7 @@ export default function ResumeViewer() {
                 <Briefcase size={14} />
                 <span>1-Page Resume</span>
                 <span
-                  className={`hidden sm:inline-block text-[10px] font-mono px-2 py-0.5 rounded-full border transition-all ${
+                  className={`hidden sm:inline-block text-[10px] font-mono px-2 py-0.5 border transition-all ${
                     activeTab === "resume"
                       ? "border-on-primary/25 bg-on-primary/10 text-on-primary font-semibold"
                       : "border-hairline-strong bg-canvas-soft-2 text-ink-light/80 font-medium"
@@ -150,8 +154,10 @@ export default function ResumeViewer() {
               </button>
 
               <button
+                role="tab"
+                aria-selected={activeTab === "cv"}
                 onClick={() => setActiveTab("cv")}
-                className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all ${
+                className={`flex flex-1 sm:flex-none justify-center items-center gap-2 px-4 py-2 text-xs sm:text-sm font-medium transition-all cursor-pointer ${
                   activeTab === "cv"
                     ? "bg-primary text-on-primary shadow-sm"
                     : "text-body hover:text-ink-light hover:bg-canvas-soft-2"
@@ -160,7 +166,7 @@ export default function ResumeViewer() {
                 <GraduationCap size={14} />
                 <span>5-Page Master CV</span>
                 <span
-                  className={`hidden sm:inline-block text-[10px] font-mono px-2 py-0.5 rounded-full border transition-all ${
+                  className={`hidden sm:inline-block text-[10px] font-mono px-2 py-0.5 border transition-all ${
                     activeTab === "cv"
                       ? "border-on-primary/25 bg-on-primary/10 text-on-primary font-semibold"
                       : "border-hairline-strong bg-canvas-soft-2 text-ink-light/80 font-medium"
@@ -178,16 +184,16 @@ export default function ResumeViewer() {
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
-            className="mt-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-xl border border-hairline bg-canvas-soft"
+            className="mt-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 border border-hairline bg-canvas-soft"
           >
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-lg border border-hairline bg-canvas flex items-center justify-center text-ink-light">
+              <div className="w-9 h-9 border border-hairline bg-canvas flex items-center justify-center text-ink-light">
                 <FileText size={18} />
               </div>
               <div>
                 <div className="flex items-center gap-2">
                   <span className="text-sm font-semibold text-ink-light">{doc.label}</span>
-                  <span className="text-[10px] font-mono px-2 py-0.5 rounded-full border border-hairline text-mute">
+                  <span className="text-[10px] font-mono px-2 py-0.5 border border-hairline text-mute">
                     {doc.pages} &middot; {doc.size}
                   </span>
                 </div>
@@ -199,7 +205,7 @@ export default function ResumeViewer() {
               <a
                 href={doc.filename}
                 download={doc.downloadName}
-                className="flex items-center gap-1.5 rounded-full bg-primary text-on-primary px-4 py-2 text-xs sm:text-sm font-medium hover:opacity-90 transition-opacity"
+                className="flex items-center gap-1.5 bg-primary text-on-primary px-4 py-2 text-xs sm:text-sm font-medium transition-colors hover:bg-accent hover:text-on-accent"
               >
                 <Download size={13} />
                 <span>Download PDF</span>
@@ -209,7 +215,7 @@ export default function ResumeViewer() {
                 href={doc.filename}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1.5 rounded-full border border-hairline bg-canvas px-4 py-2 text-xs sm:text-sm font-medium text-body hover:text-ink-light hover:border-hairline-strong transition-all"
+                className="flex items-center gap-1.5 border border-hairline bg-canvas px-4 py-2 text-xs sm:text-sm font-medium text-body hover:text-ink-light hover:border-hairline-strong transition-all"
               >
                 <ExternalLink size={13} />
                 <span>Open in Tab</span>
@@ -218,20 +224,40 @@ export default function ResumeViewer() {
           </motion.div>
 
           {/* Embedded Viewer */}
-          <div className="mt-6 rounded-2xl border border-hairline overflow-hidden bg-canvas-soft card-elevated">
+          <div className="mt-6 border border-hairline overflow-hidden bg-canvas-soft card-elevated">
             <div className="p-3 sm:p-4 border-b border-hairline bg-canvas flex items-center justify-between text-xs text-mute font-mono">
               <span className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-accent-cyan animate-pulse" />
+                <span className="w-2 h-2 bg-accent animate-pulse" />
                 Preview: {doc.downloadName}
               </span>
-              <span>Best viewed on desktop &middot; Zoom supported</span>
+              <span className="hidden sm:inline">Zoom &amp; search supported</span>
             </div>
 
-            <div className="w-full h-[75vh] min-h-[600px] max-h-[1000px] bg-[#1a1a1a]">
+            {/* Mobile browsers render embedded PDFs poorly; offer direct actions instead. */}
+            <div className="flex flex-col items-center justify-center gap-4 bg-canvas-soft-2 px-6 py-16 text-center sm:hidden">
+              <div className="flex h-14 w-14 items-center justify-center border border-hairline bg-canvas text-accent">
+                <FileText size={24} aria-hidden="true" />
+              </div>
+              <p className="max-w-xs text-sm text-body">
+                PDF previews work best on larger screens. Open it in your browser&apos;s viewer instead.
+              </p>
+              <a
+                href={doc.filename}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex h-11 items-center gap-2 bg-primary px-6 text-sm font-medium text-on-primary"
+              >
+                <ExternalLink size={14} aria-hidden="true" />
+                Open {doc.pages.toLowerCase()} PDF
+              </a>
+            </div>
+            <div className="hidden sm:block w-full h-[78vh] min-h-[600px] max-h-[1100px] bg-canvas-soft-2">
               <iframe
+                key={doc.filename}
                 src={`${doc.filename}#toolbar=1&navpanes=0&scrollbar=1&view=FitH`}
-                title={`${doc.label} - Devvrat Hans`}
+                title={`${doc.label} | Devvrat Hans`}
                 className="w-full h-full border-0"
+                loading="lazy"
               />
             </div>
 
@@ -241,7 +267,7 @@ export default function ResumeViewer() {
                 <a
                   href={doc.filename}
                   download={doc.downloadName}
-                  className="text-accent-cyan hover:underline font-medium"
+                  className="text-accent hover:underline font-medium"
                 >
                   Click here to download {doc.downloadName}
                 </a>
@@ -252,8 +278,8 @@ export default function ResumeViewer() {
 
           {/* Highlights & Scope Card */}
           <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="md:col-span-2 rounded-xl border border-hairline bg-canvas-soft p-6">
-              <div className="flex items-center gap-2 text-xs font-mono text-accent-cyan uppercase tracking-wide">
+            <div className="md:col-span-2 border border-hairline bg-canvas-soft p-6">
+              <div className="flex items-center gap-2 text-xs font-mono text-accent uppercase tracking-wide">
                 <Sparkles size={13} />
                 <span>What&apos;s covered in this document</span>
               </div>
@@ -261,14 +287,14 @@ export default function ResumeViewer() {
               <ul className="mt-4 space-y-2.5">
                 {doc.highlights.map((item, idx) => (
                   <li key={idx} className="flex items-start gap-2.5 text-sm text-body leading-relaxed">
-                    <span className="font-mono text-accent-cyan text-xs mt-1">&rarr;</span>
+                    <span className="font-mono text-accent text-xs mt-1">&rarr;</span>
                     <span>{item}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
-            <div className="rounded-xl border border-hairline bg-canvas-soft p-6 flex flex-col justify-between">
+            <div className="border border-hairline bg-canvas-soft p-6 flex flex-col justify-between">
               <div>
                 <div className="flex items-center gap-2 text-xs font-mono text-mute uppercase tracking-wide">
                   <Layers size={13} />
@@ -288,8 +314,11 @@ export default function ResumeViewer() {
               </div>
 
               <button
-                onClick={() => setActiveTab(activeTab === "resume" ? "cv" : "resume")}
-                className="mt-6 w-full py-2 px-3 rounded-lg border border-hairline bg-canvas text-xs font-medium text-ink-light hover:border-accent-cyan/50 hover:text-accent-cyan transition-all text-center"
+                onClick={() => {
+                  setActiveTab(activeTab === "resume" ? "cv" : "resume");
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }}
+                className="mt-6 w-full py-2 px-3 border border-hairline bg-canvas text-xs font-medium text-ink-light hover:border-accent/50 hover:text-accent transition-all text-center cursor-pointer"
               >
                 Switch to {activeTab === "resume" ? "5-Page Master CV" : "1-Page Resume"} &rarr;
               </button>

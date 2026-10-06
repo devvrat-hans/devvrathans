@@ -6,7 +6,7 @@ tags: ["cli", "open-source", "dx"]
 excerpt: "On building a terminal-based coding agent and why I believe the future of developer tools lives in the terminal, not the browser."
 ---
 
-Every few years, there's a wave of developer tools that try to bring the coding experience into the browser. GitHub Codespaces, StackBlitz, CodeSandbox - they're all great. But there's something about the terminal that these tools can't replicate.
+Every few years, there's a wave of developer tools that try to bring the coding experience into the browser. GitHub Codespaces, StackBlitz, CodeSandbox. They're all great. But there's something about the terminal that these tools can't replicate.
 
 The terminal is the most honest interface a developer has. No animations, no loading spinners, no drag-and-drop abstractions. Just input, output, and the full power of the system underneath.
 
@@ -16,19 +16,19 @@ When I started building YourCode, I asked myself: what would a coding agent look
 
 The answer turned out to be surprisingly clean:
 
-- **Zero dependencies** - no Electron, no browser, no runtime. Just the terminal you already have.
-- **Monorepo architecture** - CLI, server, database, and shared packages, each independently developable.
-- **Persistent sessions** - pick up where you left off, even after closing the terminal.
-- **Customizable themes** - because developers care about how their tools look, even in the terminal.
+- **Zero dependencies**: no Electron, no browser, no runtime. Just the terminal you already have.
+- **Monorepo architecture**: CLI, server, database, and shared packages, each independently developable.
+- **Persistent sessions**: pick up where you left off, even after closing the terminal.
+- **Customizable themes**: because developers care about how their tools look, even in the terminal.
 
 ## The architecture
 
 YourCode is structured as a decoupled monorepo with four packages:
 
-1. `packages/cli` - terminal UI powered by OpenTUI and React 19, managing the loopback OAuth listener, keyboard layers, and local tool execution runtime
-2. `packages/server` - Hono API gateway managing Clerk JWT authentication, Polar usage metering, system prompt compilation, and Vercel AI SDK multi-provider streaming
-3. `packages/database` - Prisma ORM layer with PostgreSQL
-4. `packages/shared` - isomorphic Zod validation schemas, model definitions, and tool contracts
+1. `packages/cli`: terminal UI powered by OpenTUI and React 19, managing the loopback OAuth listener, keyboard layers, and local tool execution runtime
+2. `packages/server`: Hono API gateway managing Clerk JWT authentication, Polar usage metering, system prompt compilation, and Vercel AI SDK multi-provider streaming
+3. `packages/database`: Prisma ORM layer with PostgreSQL
+4. `packages/shared`: isomorphic Zod validation schemas, model definitions, and tool contracts
 
 ### Client-Side Distributed Tool Execution
 

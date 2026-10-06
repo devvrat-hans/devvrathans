@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import type { TocEntry } from "@/lib/blog-data";
 
-export default function SidebarToc({ headings }: { headings: TocEntry[] }) {
+export function useActiveHeading(headings: TocEntry[]) {
   const [activeId, setActiveId] = useState<string>("");
 
   useEffect(() => {
@@ -12,12 +12,10 @@ export default function SidebarToc({ headings }: { headings: TocEntry[] }) {
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
-          if (entry.isIntersecting) {
-            setActiveId(entry.target.id);
-          }
+          if (entry.isIntersecting) setActiveId(entry.target.id);
         }
       },
-      { rootMargin: "-80px 0px -60% 0px", threshold: 0 }
+      { rootMargin: "-80px 0px -65% 0px", threshold: 0 }
     );
 
     for (const heading of headings) {
@@ -28,31 +26,44 @@ export default function SidebarToc({ headings }: { headings: TocEntry[] }) {
     return () => observer.disconnect();
   }, [headings]);
 
+  return activeId;
+}
+
+export default function SidebarToc({ headings }: { headings: TocEntry[] }) {
+  const activeId = useActiveHeading(headings);
+
   return (
-    <aside className="hidden lg:block sticky top-28 self-start w-52 shrink-0">
-      <nav className="rounded-xl border border-hairline bg-canvas-soft/50 px-4 py-4">
-        <span className="flex items-center gap-2 text-[10px] font-mono text-mute uppercase tracking-wider mb-3">
-          On this page
-        </span>
-        <ul className="space-y-1.5">
-          {headings.map((heading) => (
-            <li
-              key={heading.id}
-              style={{ paddingLeft: heading.level === 3 ? "0.75rem" : "0" }}
-            >
-              <a
-                href={`#${heading.id}`}
-                className={`block text-[12px] leading-snug transition-colors ${
-                  activeId === heading.id
-                    ? "text-accent-cyan font-medium"
-                    : "text-mute hover:text-body"
-                }`}
-              >
-                {heading.text}
-              </a>
-            </li>
-          ))}
+    <aside className="hidden lg:block sticky top-28 self-start w-56 shrink-0">
+      <nav aria-label="On this page">
+        <p className="mb-4 font-mono text-[10px] uppercase tracking-wider text-mute">On this page</p>
+        <ul className="space-y-0.5 border-l border-hairline">
+          {headings.map((heading) => {
+            const active = activeId === heading.id;
+            return (
+              <li key={heading.id}>
+                <a
+                  href={`#${heading.id}`}
+                  aria-current={active ? "location" : undefined}
+                  className={`-ml-px block border-l py-1.5 text-[13px] leading-snug transition-colors ${
+                    heading.level === 3 ? "pl-7" : "pl-4"
+                  } ${
+                    active
+                      ? "border-accent text-ink-light"
+                      : "border-transparent text-mute hover:border-hairline-strong hover:text-body"
+                  }`}
+                >
+                  {heading.text}
+                </a>
+              </li>
+            );
+          })}
         </ul>
+        <button
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          className="mt-6 font-mono text-[11px] text-mute transition-colors hover:text-ink-light cursor-pointer"
+        >
+          ↑ Back to top
+        </button>
       </nav>
     </aside>
   );

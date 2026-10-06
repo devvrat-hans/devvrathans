@@ -60,11 +60,18 @@ export function getAllPosts(): BlogPost[] {
           .replace(/-+/g, "-")
           .trim();
         headings.push({ id, text: rawText, level });
+        // Hover-revealed "#" permalink after each heading (styled by .heading-anchor).
         contentWithIds = contentWithIds.replace(
           match[0],
-          `<h${level} id="${id}">${match[2]}</h${level}>`
+          `<h${level} id="${id}">${match[2]}<a class="heading-anchor" href="#${id}" aria-label="Link to this section">#</a></h${level}>`
         );
       }
+
+      // Wrap code blocks so they can carry a copy button (wired up in BlogPostClient).
+      contentWithIds = contentWithIds.replace(
+        /<pre>/g,
+        `<div class="code-block"><button type="button" class="code-copy" data-copy-code>Copy</button><pre>`
+      ).replace(/<\/pre>/g, "</pre></div>");
 
       return {
         slug,

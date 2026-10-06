@@ -4,6 +4,8 @@ import { ReactNode } from "react";
 import { AnimatePresence } from "framer-motion";
 import { useMode } from "./ModeProvider";
 import Terminal from "./Terminal";
+import Footer from "./Footer";
+import BackToTop from "./BackToTop";
 
 export default function MainShell({ children }: { children: ReactNode }) {
   const { mode, toggleMode } = useMode();
@@ -14,8 +16,10 @@ export default function MainShell({ children }: { children: ReactNode }) {
         {mode === "terminal" ? (
           <Terminal key="terminal" onClose={toggleMode} />
         ) : (
-          <div key="website" className="flex-1 flex flex-col">
-            {children}
+          <div key="website" id="main" tabIndex={-1} className="flex-1 flex flex-col outline-none">
+            <div className="flex-1">{children}</div>
+            <Footer />
+            <BackToTop />
           </div>
         )}
       </AnimatePresence>

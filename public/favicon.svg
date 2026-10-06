@@ -1,4 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <rect width="32" height="32" rx="6" fill="#0a0a0a"/>
-  <text x="16" y="22" text-anchor="middle" font-family="ui-monospace, monospace" font-size="16" font-weight="600" fill="#50e3c2">~/</text>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><style>.t{fill:#0a0a0a}.i{fill:#ffffff}@media (prefers-color-scheme:dark){.t{fill:#fafafa}.i{fill:#0a0a0a}}</style><rect class="t" width="32" height="32"/><path class="i" d="M10.25 21.33L6.62 21.33L6.62 10.68L10.16 10.68Q12.71 10.68 14.08 12.06Q15.45 13.45 15.45 16.02L15.45 16.02Q15.45 18.57 14.10 19.95Q12.75 21.33 10.25 21.33L10.25 21.33ZM8.57 12.37L8.57 19.63L10.16 19.63Q13.44 19.63 13.44 16.02L13.44 16.02Q13.44 12.37 10.16 12.37L10.16 12.37L8.57 12.37ZM18.95 21.33L17.00 21.33L17.00 10.68L18.95 10.68L18.95 15.12L23.43 15.12L23.43 10.68L25.38 10.68L25.38 21.33L23.43 21.33L23.43 16.81L18.95 16.81L18.95 21.33Z"/></svg>

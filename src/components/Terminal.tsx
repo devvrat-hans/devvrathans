@@ -40,13 +40,13 @@ const FILESYSTEM: FileNode = {
           content: [
             "B.Tech Computer Science & Engineering",
             "  Institute:  IIT Gandhinagar",
-            "  Period:     2023 - 2027",
+            "  Period:     2023 to 2027",
             "  CPI:        8.30/10",
             "",
-            "Class XII - White Leaf Public School",
+            "Class XII, White Leaf Public School",
             "  Period: 2022-2023 | Score: 94.40%",
             "",
-            "Class X - Modern Delhi Public School",
+            "Class X, Modern Delhi Public School",
             "  Period: 2020-2021 | Score: 97.00%",
           ].join("\n"),
         },
@@ -56,9 +56,9 @@ const FILESYSTEM: FileNode = {
           content: [
             "JEE Advanced AIR 1505 (top 1%)",
             "JEE Mains 99.65 percentile",
-            "Accenture Innovation Challenge 2026 - National Top 10 (3,000+ teams), PPO",
+            "Accenture Innovation Challenge 2026: National Top 10 (3,000+ teams), PPO",
             "Finnovate Hack 2025 Runner-Up",
-            "Dean's List - Semester I",
+            "Dean's List, Semester I",
             "FIDE Rapid Rating: 1437",
             "Chess.com Peak: 1938 (Rapid)",
             "AbackTools.com: ~500 daily clicks",
@@ -70,35 +70,35 @@ const FILESYSTEM: FileNode = {
       type: "dir",
       name: "experience",
       children: {
-        "intentyfi.txt": {
+        "stealth-startup.txt": {
           type: "file",
-          name: "intentyfi.txt",
+          name: "stealth-startup.txt",
           content: [
             "Role:    Software Engineering Intern",
-            "Company: Intentyfi",
-            "Period:  Feb '26 - Jul '26",
+            "Company: Stealth startup (San Francisco, CA)",
+            "Period:  Feb '26 to Jul '26",
             "Stack:   Rust, Axum, PostgreSQL, Next.js, GCP",
             "",
             "Highlights:",
-            "  - Architected Case Management App from scratch",
-            "  - Built production RAG infrastructure",
-            "  - Implemented AI-agent security controls",
-            "  - Developed LLM orchestration with Gemini",
+            "  • Architected Case Management App from scratch",
+            "  • Built production RAG infrastructure",
+            "  • Implemented AI-agent security controls",
+            "  • Developed LLM orchestration with Gemini",
           ].join("\n"),
         },
         "aback.txt": {
           type: "file",
           name: "aback.txt",
           content: [
-            "Role:    Founder's Office - Technology",
+            "Role:    Founder's Office (Technology)",
             "Company: Aback.ai",
-            "Period:  Jun '25 - Feb '26",
+            "Period:  Jun '25 to Feb '26",
             "Stack:   Full Stack, AI/ML, Product, Cloud",
             "",
             "Highlights:",
-            "  - Led technology across all verticals",
-            "  - Built AbackTools.com (~500 clicks/day)",
-            "  - Contributed to QRliee, Invoice, Inventory products",
+            "  • Led technology across all verticals",
+            "  • Built AbackTools.com (~500 clicks/day)",
+            "  • Contributed to QRliee, Invoice, Inventory products",
           ].join("\n"),
         },
         "trado.txt": {
@@ -107,13 +107,13 @@ const FILESYSTEM: FileNode = {
           content: [
             "Role:    Development Intern",
             "Company: Trado (Windigo Trade)",
-            "Period:  Nov '25 - Jan '26",
+            "Period:  Nov '25 to Jan '26",
             "Stack:   Python, LEAN, Trading, API",
             "",
             "Highlights:",
-            "  - Developed algorithmic trading platform",
-            "  - Built backtesting & live trading pipeline",
-            "  - Led Connect by Trado from scratch",
+            "  • Developed algorithmic trading platform",
+            "  • Built backtesting & live trading pipeline",
+            "  • Led Connect by Trado from scratch",
           ].join("\n"),
         },
         "curlsek.txt": {
@@ -122,12 +122,12 @@ const FILESYSTEM: FileNode = {
           content: [
             "Role:    Development Intern",
             "Company: Curlsek AI Technologies",
-            "Period:  Mar '25 - Jul '25",
+            "Period:  Mar '25 to Jul '25",
             "Stack:   Spring Boot, MongoDB, Security, AI",
             "",
             "Highlights:",
-            "  - Built AI-powered cybersecurity portal PoC",
-            "  - Designed secure auth APIs with RBAC",
+            "  • Built AI-powered cybersecurity portal PoC",
+            "  • Designed secure auth APIs with RBAC",
           ].join("\n"),
         },
       },
@@ -148,11 +148,11 @@ const FILESYSTEM: FileNode = {
             "tool execution and enterprise AI governance guardrails.",
             "",
             "Features:",
-            "  - Client-side distributed tool execution with strict CWD bounds",
-            "  - OpenTUI + React 19 terminal engine with 30+ themes",
-            "  - Multi-provider Vercel AI SDK streaming (Claude 3.7, GPT-4o, Gemini 2.0)",
-            "  - Enterprise AI Governance: PII redaction, prompt injection defense",
-            "  - Zero-knowledge client-side message encryption (AES-256-GCM)",
+            "  • Client-side distributed tool execution with strict CWD bounds",
+            "  • OpenTUI + React 19 terminal engine with 30+ themes",
+            "  • Multi-provider Vercel AI SDK streaming (Claude 3.7, GPT-4o, Gemini 2.0)",
+            "  • Enterprise AI Governance: PII redaction, prompt injection defense",
+            "  • Zero-knowledge client-side message encryption (AES-256-GCM)",
           ].join("\n"),
         },
         "blinddrop.txt": {
@@ -166,9 +166,9 @@ const FILESYSTEM: FileNode = {
             "with one-time download codes and auto-expiry.",
             "",
             "Features:",
-            "  - Hash-based horizontal sharding (3 SQLite DBs)",
-            "  - SHA-256 integrity, UUID storage, rate limiting",
-            "  - Supports files up to 100MB",
+            "  • Hash-based horizontal sharding (3 SQLite DBs)",
+            "  • SHA-256 integrity, UUID storage, rate limiting",
+            "  • Supports files up to 100MB",
           ].join("\n"),
         },
         "algo-trading.txt": {
@@ -183,9 +183,9 @@ const FILESYSTEM: FileNode = {
             "on the Upstox API with configurable risk management.",
             "",
             "Features:",
-            "  - Modular: data, strategy, execution, risk controls",
-            "  - Stop-loss, take-profit, and daily loss limits",
-            "  - Options and equity instrument discovery",
+            "  • Modular: data, strategy, execution, risk controls",
+            "  • Stop-loss, take-profit, and daily loss limits",
+            "  • Options and equity instrument discovery",
           ].join("\n"),
         },
         "controlplane.txt": {
@@ -202,9 +202,9 @@ const FILESYSTEM: FileNode = {
             "across performance, cost, and safety with fail-open guarantee.",
             "",
             "Features:",
-            "  - Sub-10ms fast path (secrets/PII regex, cost caps)",
-            "  - Async shadow path (<2s) with 13 automated checks",
-            "  - DeepEval hallucination scoring & Presidio PII detection",
+            "  • Sub-10ms fast path (secrets/PII regex, cost caps)",
+            "  • Async shadow path (<2s) with 13 automated checks",
+            "  • DeepEval hallucination scoring & Presidio PII detection",
           ].join("\n"),
         },
         "adani-fintell.txt": {
@@ -220,10 +220,10 @@ const FILESYSTEM: FileNode = {
             "with multi-stage GST verification and anomaly detection.",
             "",
             "Features:",
-            "  - AI-powered OCR with 80%+ extraction accuracy",
-            "  - Real-time GST portal validation & 3-way PO matching",
-            "  - Duplicate detection & market price anomaly benchmarking",
-            "  - Conversational AI analytics assistant",
+            "  • AI-powered OCR with 80%+ extraction accuracy",
+            "  • Real-time GST portal validation & 3-way PO matching",
+            "  • Duplicate detection & market price anomaly benchmarking",
+            "  • Conversational AI analytics assistant",
           ].join("\n"),
         },
         "toonifyit.txt": {
@@ -239,9 +239,9 @@ const FILESYSTEM: FileNode = {
             "data representation in LLM workflows.",
             "",
             "Features:",
-            "  - Real-time browser-based conversion",
-            "  - Client-side processing (zero data leaves device)",
-            "  - Configurable delimiters & length markers",
+            "  • Real-time browser-based conversion",
+            "  • Client-side processing (zero data leaves device)",
+            "  • Configurable delimiters & length markers",
           ].join("\n"),
         },
         "boeing.txt": {
@@ -249,9 +249,9 @@ const FILESYSTEM: FileNode = {
           name: "boeing.txt",
           content: [
             "Name:   Boeing BUILD 2026 Website",
-            "URL:    build.boeing.com",
+            "URL:    iieciitgn.com/build2026",
             "",
-            "Official Boeing BUILD 2026 India website -",
+            "Official Boeing BUILD 2026 India website with",
             "program info, event details, application workflows.",
             "",
             "Delivered end-to-end from stakeholder requirements",
@@ -267,7 +267,7 @@ const FILESYSTEM: FileNode = {
             "Stack:  Next.js, SSR",
             "",
             "Official website for the IIT Gandhinagar Research",
-            "Park - industry-academia collaboration ecosystem.",
+            "Park, an industry-academia collaboration ecosystem.",
           ].join("\n"),
         },
         "zerowaste.txt": {
@@ -278,7 +278,7 @@ const FILESYSTEM: FileNode = {
             "URL:    zerowastegujarat.com",
             "Stack:  Next.js, SSR",
             "",
-            "Textile waste-to-value initiative - recycling,",
+            "Textile waste-to-value initiative: recycling,",
             "sustainable nonwovens, carbon-credit solutions.",
           ].join("\n"),
         },
@@ -286,11 +286,11 @@ const FILESYSTEM: FileNode = {
           type: "file",
           name: "chess.txt",
           content: [
-            "Name:   Chess Website - IITGN",
+            "Name:   IITGN Chess Website",
             "Stack:  HTML, CSS, JavaScript",
             "",
             "Official web platform for the IIT Gandhinagar",
-            "chess community - events, registration, gallery.",
+            "chess community: events, registration, gallery.",
           ].join("\n"),
         },
       },
@@ -384,7 +384,7 @@ const FILESYSTEM: FileNode = {
       type: "file",
       name: "resume.pdf",
       content: [
-        "Devvrat Hans - 1-Page Software Engineering & AI Resume (76 KB)",
+        "Devvrat Hans · 1-Page Software Engineering & AI Resume (76 KB)",
         "Focused on SWE, Agentic AI, and Full-Stack Engineering.",
         "Type 'resume' in terminal or open https://devvrathans.com/resume.pdf",
       ].join("\n"),
@@ -393,7 +393,7 @@ const FILESYSTEM: FileNode = {
       type: "file",
       name: "cv.pdf",
       content: [
-        "Devvrat Hans - 5-Page Master Academic Curriculum Vitae (127 KB)",
+        "Devvrat Hans · 5-Page Master Academic Curriculum Vitae (127 KB)",
         "Includes full research, coursework, awards, and positions of responsibility.",
         "Type 'cv' in terminal or open https://devvrathans.com/cv.pdf",
       ].join("\n"),
@@ -403,9 +403,13 @@ const FILESYSTEM: FileNode = {
 
 // ── Terminal Component ──────────────────────────────────────────────
 interface TerminalLine {
-  type: "input" | "output" | "error" | "system" | "dir" | "file" | "success";
+  type: "input" | "output" | "error" | "system" | "dir" | "file" | "success" | "banner" | "banner-sm";
   text: string;
 }
+
+// Box-drawing glyphs need a font that ships them at a fixed advance; fall back to the
+// platform monospace for the banner so the letters line up everywhere.
+const BANNER_FONT = 'ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace';
 
 function resolvePath(cwd: string, path: string): FileNode | null {
   const parts = path.startsWith("~")
@@ -441,8 +445,32 @@ function getParentPath(cwd: string, target: string): string {
   return "~" + (resolved.length ? "/" + resolved.join("/") : "");
 }
 
+// Boot sequence shown when the terminal opens. The wide banner is hidden on phones,
+// where a one-line version ("banner-sm") stands in for it.
+const BOOT_LINES: TerminalLine[] = [
+    { type: "banner", text: "  ██████╗ ███████╗██╗   ██╗██╗   ██╗██████╗  █████╗ ████████╗" },
+    { type: "banner", text: "  ██╔══██╗██╔════╝██║   ██║██║   ██║██╔══██╗██╔══██╗╚══██╔══╝" },
+    { type: "banner", text: "  ██║  ██║█████╗  ██║   ██║██║   ██║██████╔╝███████║   ██║   " },
+    { type: "banner", text: "  ██║  ██║██╔══╝  ╚██╗ ██╔╝╚██╗ ██╔╝██╔══██╗██╔══██║   ██║   " },
+    { type: "banner", text: "  ██████╔╝███████╗ ╚████╔╝  ╚████╔╝ ██║  ██║██║  ██║   ██║   " },
+    { type: "banner", text: "  ╚═════╝ ╚══════╝  ╚═══╝    ╚═══╝  ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   " },
+    { type: "banner-sm", text: "  ▌ devvrat hans · portfolio shell" },
+    { type: "output", text: "" },
+    { type: "output", text: "  Welcome. I'm Devvrat Hans, Software Engineer & Builder." },
+    { type: "output", text: "  B.Tech CSE @ IIT Gandhinagar | CPI: 8.30/10" },
+    { type: "output", text: "" },
+    { type: "output", text: "  This is an interactive terminal. Try:" },
+    { type: "output", text: "    ls                  list directories" },
+    { type: "output", text: "    cd projects         navigate into a folder" },
+    { type: "output", text: "    cat about/bio.txt   read a file" },
+    { type: "output", text: "    help                see all commands" },
+    { type: "output", text: "" },
+    { type: "output", text: "  Use up/down arrows for history, Tab for autocomplete." },
+    { type: "output", text: "" },
+];
+
 export default function Terminal({ onClose }: { onClose: () => void }) {
-  const [lines, setLines] = useState<TerminalLine[]>([]);
+  const [lines, setLines] = useState<TerminalLine[]>(BOOT_LINES);
   const [input, setInput] = useState("");
   const [cwd, setCwd] = useState("~");
   const [history, setHistory] = useState<string[]>([]);
@@ -451,30 +479,6 @@ export default function Terminal({ onClose }: { onClose: () => void }) {
   const inputRef = useRef<HTMLInputElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  // Boot sequence
-  useEffect(() => {
-    const boot: TerminalLine[] = [
-      { type: "system", text: "  ██████╗ ███████╗██╗   ██╗██╗   ██╗██████╗  █████╗ ████████╗" },
-      { type: "system", text: "  ██╔══██╗██╔════╝██║   ██║██║   ██║██╔═ ██║██╔══██╗╚══██╔══╝" },
-      { type: "system", text: "  ██║  ██║█████╗  ██║   ██║██║   ██║██║██║  ███████║   ██║   " },
-      { type: "system", text: "  ██║  ██║██╔══╝  ╚██╗ ██╔╝╚██╗ ██╔╝██║ ██║ ██╔══██║   ██║   " },
-      { type: "system", text: "  ██████╔╝███████╗ ╚████╔╝  ╚████╔╝ ██║  ██║██║  ██║   ██║   " },
-      { type: "system", text: "  ╚═════╝ ╚══════╝  ╚═══╝    ╚═══╝  ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   " },
-      { type: "output", text: "" },
-      { type: "output", text: "  Welcome. I'm Devvrat Hans - Software Engineer & Builder." },
-      { type: "output", text: "  B.Tech CSE @ IIT Gandhinagar | CPI: 8.30/10" },
-      { type: "output", text: "" },
-      { type: "output", text: "  This is an interactive terminal. Try:" },
-      { type: "output", text: "    ls              - list directories" },
-      { type: "output", text: "    cd projects     - navigate into a folder" },
-      { type: "output", text: "    cat about.txt   - read a file" },
-      { type: "output", text: "    help            - see all commands" },
-      { type: "output", text: "" },
-      { type: "output", text: "  Use up/down arrows for history, Tab for autocomplete." },
-      { type: "output", text: "" },
-    ];
-    setLines(boot);
-  }, []);
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -782,7 +786,7 @@ export default function Terminal({ onClose }: { onClose: () => void }) {
         return [
           { type: "output", text: `cd ~/experience` },
           { type: "output", text: "" },
-          { type: "output", text: "  intentyfi.txt    aback.txt    trado.txt    curlsek.txt" },
+          { type: "output", text: "  stealth-startup.txt    aback.txt    trado.txt    curlsek.txt" },
           { type: "output", text: "" },
           { type: "output", text: "  Use cat <filename> to read details about each role." },
         ];
@@ -838,7 +842,7 @@ export default function Terminal({ onClose }: { onClose: () => void }) {
         return [
           { type: "output", text: "Opening 1-Page Resume (/resume.pdf)..." },
           { type: "output", text: "" },
-          { type: "output", text: "  Document: Devvrat Hans - 1-Page Resume (76 KB PDF)" },
+          { type: "output", text: "  Document: Devvrat Hans · 1-Page Resume (76 KB PDF)" },
           { type: "output", text: "  Focus:    Software Engineering, Agentic AI, Production Full-Stack" },
           { type: "output", text: "  Direct:   https://devvrathans.com/resume.pdf" },
           { type: "output", text: "" },
@@ -853,7 +857,7 @@ export default function Terminal({ onClose }: { onClose: () => void }) {
         return [
           { type: "output", text: "Opening 5-Page Master CV (/cv.pdf)..." },
           { type: "output", text: "" },
-          { type: "output", text: "  Document: Devvrat Hans - 5-Page Master CV (127 KB PDF)" },
+          { type: "output", text: "  Document: Devvrat Hans · 5-Page Master CV (127 KB PDF)" },
           { type: "output", text: "  Focus:    Full Academic, Research (Biomaterials, Chess), Coursework & PoRs" },
           { type: "output", text: "  Direct:   https://devvrathans.com/cv.pdf" },
         ];
@@ -939,7 +943,32 @@ export default function Terminal({ onClose }: { onClose: () => void }) {
     } else if (e.key === "Tab") {
       e.preventDefault();
       handleTab();
+    } else if (e.ctrlKey && e.key.toLowerCase() === "l") {
+      // Ctrl+L clears the screen, like a real shell
+      e.preventDefault();
+      setLines([]);
+    } else if (e.ctrlKey && e.key.toLowerCase() === "c") {
+      // Ctrl+C abandons the current line (only when nothing is selected, so copy still works)
+      if (window.getSelection()?.toString()) return;
+      e.preventDefault();
+      setLines((prev) => [...prev, { type: "input", text: `${prompt} ${input}^C` }]);
+      setInput("");
+      setHistoryIndex(-1);
     }
+  };
+
+  // Run a command from the quick-action chips as if it were typed.
+  const runQuick = (cmd: string) => {
+    setHistory((prev) => [...prev, cmd]);
+    setHistoryIndex(-1);
+    const output = processCommand(cmd);
+    setLines((prev) => (cmd === "clear" ? output : [...prev, { type: "input", text: `${prompt} ${cmd}` }, ...output]));
+    inputRef.current?.focus();
+  };
+
+  // Focus the prompt when clicking anywhere in the terminal, unless the user is selecting text.
+  const focusInput = () => {
+    if (!window.getSelection()?.toString()) inputRef.current?.focus();
   };
 
   return (
@@ -948,48 +977,77 @@ export default function Terminal({ onClose }: { onClose: () => void }) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.3 }}
-      className="min-h-screen bg-terminal-bg pt-16 pb-4"
+      className="min-h-[100svh] bg-canvas pt-16 pb-4"
     >
-      <div className="mx-auto px-4 h-[calc(100vh-4.5rem)]">
-        <div className="h-full flex flex-col rounded-xl border border-hairline bg-canvas overflow-hidden relative">
+      <div className="mx-auto max-w-6xl px-3 sm:px-6 pt-3 h-[calc(100svh-4.75rem)]">
+        <div className="h-full flex flex-col border border-hairline bg-canvas overflow-hidden relative shadow-[0_24px_64px_-24px_rgba(0,0,0,0.6)]">
           {/* Title bar */}
           <div className="flex items-center gap-2 px-4 py-3 border-b border-hairline bg-canvas-soft">
             <div className="flex gap-1.5">
-              <div className="w-3 h-3 rounded-full bg-[#ff5f57]" />
-              <div className="w-3 h-3 rounded-full bg-[#ffbd2e]" />
-              <div className="w-3 h-3 rounded-full bg-[#28c840]" />
+              <button
+                onClick={onClose}
+                aria-label="Close terminal and return to website"
+                className="group flex w-3 h-3 items-center justify-center bg-hairline-strong hover:bg-danger cursor-pointer"
+              >
+                <span className="text-[8px] leading-none text-black/60 opacity-0 group-hover:opacity-100" aria-hidden="true">×</span>
+              </button>
+              <div className="w-3 h-3 bg-hairline-strong" aria-hidden="true" />
+              <div className="w-3 h-3 bg-hairline-strong" aria-hidden="true" />
             </div>
-            <span className="ml-2 text-xs font-mono text-mute">
-              devvrathans - bash
+            <span className="ml-2 text-xs font-mono text-mute truncate">
+              devvrathans · bash · {cwd}
+            </span>
+            <span className="ml-auto hidden sm:inline text-[11px] font-mono text-mute">
+              tab autocomplete · ↑↓ history · ctrl+l clear
             </span>
           </div>
 
           {/* Terminal body */}
           <div
             ref={scrollRef}
-            className="flex-1 overflow-y-auto p-4 font-mono text-sm"
+            onClick={focusInput}
+            role="log"
+            aria-live="polite"
+            aria-label="Terminal output"
+            className="flex-1 overflow-auto p-4 font-mono text-[12px] sm:text-sm cursor-text"
           >
-            {lines.map((line, i) => (
+            {lines.map((line, i) =>
+              line.type === "banner" || line.type === "banner-sm" ? (
+                <div
+                  key={i}
+                  aria-hidden={line.type === "banner" ? true : undefined}
+                  style={line.type === "banner" ? { fontFamily: BANNER_FONT } : undefined}
+                  className={
+                    line.type === "banner"
+                      ? "hidden whitespace-pre text-[13px] leading-[1.15] text-accent sm:block"
+                      : "whitespace-pre font-medium leading-relaxed text-accent sm:hidden"
+                  }
+                >
+                  {line.text}
+                </div>
+              ) : (
               <div
                 key={i}
                 className={`
-                  ${line.type === "input" ? "text-terminal-prompt" : ""}
-                  ${line.type === "error" ? "text-[#ff5f57]" : ""}
-                  ${line.type === "system" ? "text-accent-cyan" : ""}
-                  ${line.type === "success" ? "text-accent-cyan font-medium" : ""}
-                  ${line.type === "dir" ? "text-accent-blue" : ""}
+                  ${line.type === "input" ? "text-ink-light" : ""}
+                  ${line.type === "error" ? "text-danger" : ""}
+                  ${line.type === "system" ? "text-accent" : ""}
+                  ${line.type === "success" ? "text-ink-light font-medium" : ""}
+                  ${line.type === "dir" ? "text-ink-light font-medium" : ""}
                   ${line.type === "file" ? "text-body" : ""}
-                  ${line.type === "output" ? "text-terminal-output" : ""}
-                  whitespace-pre leading-relaxed
+                  ${line.type === "output" ? "text-body" : ""}
+                  whitespace-pre-wrap break-words leading-relaxed sm:whitespace-pre
                 `}
               >
-                {line.text}
+                {/* nbsp keeps blank lines from collapsing to zero height */}
+                {line.text || "\u00a0"}
               </div>
-            ))}
+              )
+            )}
 
             {/* Input line */}
             <form onSubmit={handleSubmit} className="flex items-center gap-0 mt-0.5">
-              <span className="text-terminal-prompt shrink-0">{prompt}</span>
+              <span className="text-accent shrink-0">{prompt}</span>
               <input
                 ref={inputRef}
                 type="text"
@@ -999,12 +1057,29 @@ export default function Terminal({ onClose }: { onClose: () => void }) {
                   setTabCount(0);
                 }}
                 onKeyDown={handleKeyDown}
-                className="flex-1 bg-transparent outline-none text-terminal-text caret-terminal-cursor ml-2 font-mono text-sm"
+                className="flex-1 min-w-0 bg-transparent outline-none focus-visible:outline-none text-ink-light caret-accent ml-2 font-mono text-[16px] sm:text-sm"
+                aria-label="Terminal command"
                 autoFocus
                 autoComplete="off"
+                autoCapitalize="off"
+                autoCorrect="off"
                 spellCheck={false}
+                enterKeyHint="send"
               />
             </form>
+          </div>
+
+          {/* Quick commands, mainly for touch devices without a Tab key */}
+          <div className="no-scrollbar flex items-center gap-1.5 overflow-x-auto border-t border-hairline bg-canvas-soft px-3 py-2">
+            {["help", "about", "experience", "projects", "skills", "contact", "resume", "clear", "exit"].map((cmd) => (
+              <button
+                key={cmd}
+                onClick={() => runQuick(cmd)}
+                className="shrink-0 border border-hairline bg-canvas px-3 py-1 font-mono text-[11px] text-body transition-colors hover:border-hairline-strong hover:text-ink-light cursor-pointer"
+              >
+                {cmd}
+              </button>
+            ))}
           </div>
         </div>
       </div>

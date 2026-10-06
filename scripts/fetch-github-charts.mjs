@@ -1,5 +1,5 @@
 // scripts/fetch-github-charts.mjs
-// Runs before `next build` — fetches GitHub contribution data (including private)
+// Runs before `next build`. Fetches GitHub contribution data (including private)
 // via GraphQL API using GITHUB_TOKEN env var, writes to /public/github-contributions.json
 //
 // Required env var: GITHUB_TOKEN (classic PAT with read:user scope, or fine-grained with read access)
@@ -30,7 +30,7 @@ if (!TOKEN) {
 
 if (!TOKEN) {
   console.warn(
-    "[fetch-github-charts] GITHUB_TOKEN not set — skipping fetch, using cached data if available."
+    "[fetch-github-charts] GITHUB_TOKEN not set, skipping fetch, using cached data if available."
   );
   process.exit(0);
 }
@@ -105,6 +105,6 @@ try {
   );
 } catch (err) {
   console.warn(`[fetch-github-charts] Failed: ${err.message}`);
-  // Don't fail the build — the component falls back to the cached file or shows empty state
+  // Don't fail the build; the component falls back to the cached file or shows empty state
   process.exit(0);
 }

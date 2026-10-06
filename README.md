@@ -16,7 +16,7 @@ framer-motion · SWR · markdown-it + gray-matter for the blog.
 | `bun run dev` | Local dev server |
 | `bun run build` | Regenerates OG image + heatmap snapshot, then static export to `out/` |
 | `bun run typecheck` | Typechecks the app and the Worker |
-| `bun run lint` | ESLint (has pre-existing style errors; see below) |
+| `bun run lint` | ESLint |
 | `bun run deploy` | Publishes `out/` to Cloudflare Pages |
 | `bun run charts:refresh` | Refreshes `public/github-contributions.json` only |
 | `bun run worker:dev` / `worker:deploy` / `worker:tail` | Cloudflare Worker for the heatmap feed |
@@ -47,8 +47,6 @@ back to the build snapshot, then to a public-only API.
 - Portfolio copy: `src/components/*.tsx`
 - Resume/CV PDFs: `public/resume.pdf`, `public/cv.pdf` (served from `/resume`)
 
-## Known lint state
+## Lint state
 
-`bun run lint` currently reports 11 errors, all pre-existing and unrelated to any single feature:
-`react/jsx-no-comment-textnodes` on explanatory JSX comments and `react-hooks/set-state-in-effect`
-in `ThemeProvider`/blog pages.
+`bun run lint` and `bun run typecheck` both pass cleanly.
