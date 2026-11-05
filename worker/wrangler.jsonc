@@ -28,11 +28,10 @@
 			"id": "41f0a682a4604ef49d43f15bfcfcdfe9",
 			"remote": false
 		},
-		// Newsletter subscribers. Replace the placeholder with the id printed by
-		// `bunx wrangler kv namespace create NEWSLETTER` before deploying.
+		// Newsletter subscribers.
 		{
 			"binding": "NEWSLETTER",
-			"id": "REPLACE_WITH_NEWSLETTER_KV_ID",
+			"id": "1325110c6dd040af94ddbce59a9d846a",
 			"remote": false
 		}
 	],
