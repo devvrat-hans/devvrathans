@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, FileText } from "lucide-react";
+import { ArrowRight, FileText, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { GithubIcon, LinkedinIcon, XIcon } from "./icons";
 import { useLocalTime } from "./useLocalTime";
@@ -131,6 +131,14 @@ export default function Hero() {
               >
                 <FileText size={14} aria-hidden="true" />
                 Resume
+              </Link>
+              <span className="mx-1 h-3 w-px bg-hairline-strong" aria-hidden="true" />
+              <Link
+                href="/me"
+                className="group inline-flex h-9 items-center gap-1.5 px-2 transition-colors hover:text-ink-light"
+              >
+                <Sparkles size={14} className="transition-colors group-hover:text-accent" aria-hidden="true" />
+                Real me
               </Link>
               <span className="mx-1 h-3 w-px bg-hairline-strong" aria-hidden="true" />
               {socials.map(({ label, href, Icon }) => (

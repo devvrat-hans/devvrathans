@@ -80,6 +80,23 @@ curl -s 'http://localhost:8787/github-contributions.json?refresh=1' | head -c 20
 
 Served methods are `GET`, `HEAD` and `OPTIONS`; anything else returns 405.
 
+## Newsletter sign-ups
+
+The same Worker also answers `devvrathans.com/api/*` (route in `wrangler.jsonc`) for the newsletter
+forms on the real-me pages. Code: `src/newsletter.ts`.
+
+| Endpoint | What it does |
+|---|---|
+| `POST /api/newsletter` | `{ email, source, website }`. Stores `sub:<email>` in the `NEWSLETTER` KV namespace. `website` is a honeypot, and each IP gets 5 attempts a minute |
+| `GET /api/newsletter/export` | CSV of every subscriber. Needs `Authorization: Bearer <NEWSLETTER_ADMIN_TOKEN>` |
+
+Setup: create the namespace (`bunx wrangler kv namespace create NEWSLETTER`), paste its id over
+`REPLACE_WITH_NEWSLETTER_KV_ID` in `wrangler.jsonc`, set the token with
+`bunx wrangler secret put NEWSLETTER_ADMIN_TOKEN`, then `bun run worker:deploy`.
+
+Locally, browsers on any `localhost` port may post to it, so `bun run dev` can talk to
+`bun run worker:dev` once `NEXT_PUBLIC_NEWSLETTER_URL` points at the local Worker.
+
 ## Monitoring
 
 ```bash

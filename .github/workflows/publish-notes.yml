@@ -1,0 +1,118 @@
+# Publishes notes from Notion on a schedule, so ticking "Published" is all it takes.
+#
+# Every 3 hours, and whenever you press "Run workflow", this syncs the notes database, commits
+# whatever changed to main, and deploys main to Cloudflare Pages when the live site is missing
+# those notes. It never deploys over live work that main doesn't have; the rules are at the top
+# of scripts/deploy-pages.mjs. Setup and secrets: DEPLOY.md, "Notes publish themselves".
+name: Publish notes
+
+on:
+  schedule:
+    # Minute 17 rather than 0: scheduled runs start late when every job in GitHub wants the hour.
+    - cron: "17 */3 * * *"
+  workflow_dispatch:
+    inputs:
+      force:
+        description: Deploy main now, even with no new notes or when the live site has work main doesn't
+        type: boolean
+        default: false
+
+# One run at a time, so two runs never push or deploy over each other.
+concurrency:
+  group: publish-notes
+  cancel-in-progress: false
+
+permissions: {}
+
+jobs:
+  # Skips the rest, and stays green, until the Notion secret exists. That way this file can land
+  # on main before the setup is done without failing a run every three hours.
+  ready:
+    runs-on: ubuntu-latest
+    outputs:
+      notion: ${{ steps.secrets.outputs.notion }}
+    steps:
+      - id: secrets
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+        run: |
+          if [ -n "$NOTION_TOKEN" ]; then
+            echo "notion=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "::notice::NOTION_TOKEN isn't set yet, so there is nothing to publish. Setup: DEPLOY.md, \"Notes publish themselves\"."
+          fi
+
+  publish:
+    needs: ready
+    if: needs.ready.outputs.notion == 'true' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write # to commit synced notes to main
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0 # full history, so the deploy check can tell which commits are on main
+
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
+        with:
+          bun-version-file: package.json
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+
+      - run: bun install --frozen-lockfile
+
+      - name: Sync notes from Notion
+        run: node scripts/sync-notion-notes.mjs --strict
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          NOTION_NOTES_DATABASE_ID: ${{ secrets.NOTION_NOTES_DATABASE_ID }}
+
+      - name: Commit note changes to main
+        run: |
+          git add -A -- content/notes public/notes-media
+          if git diff --cached --quiet; then
+            echo "No note changes."
+            exit 0
+          fi
+          # "notes: add first-note, update second-note", or a count when many changed at once
+          summary=$(git diff --cached --name-status -- content/notes | awk -F '\t' '
+            {
+              verb = $1 ~ /^A/ ? "add" : $1 ~ /^D/ ? "remove" : $1 ~ /^R/ ? "rename" : "update"
+              slug = $NF; sub(/^content\/notes\//, "", slug); sub(/\.md$/, "", slug)
+              list = list sep verb " " slug; sep = ", "; n++
+            }
+            END { out = n > 3 ? "sync " n " notes" : list; print out }')
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit --quiet -m "notes: ${summary:-sync files from Notion}"
+          # main may have moved since checkout: replay the commit on top and push once more.
+          if ! git push --quiet origin HEAD:main; then
+            echo "main moved during this run, so rebasing onto it and pushing again."
+            git pull --rebase --quiet origin main
+            git push --quiet origin HEAD:main
+          fi
+          git log -1 --format="Pushed %h: %s"
+
+      - name: Check the live site
+        id: check
+        run: node scripts/deploy-pages.mjs --check ${{ inputs.force && '--force' || '' }}
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+      - name: Build
+        if: steps.check.outputs.deploy == 'true'
+        run: bun run build
+        env:
+          # Optional. Refreshes the heatmap snapshot; without it the committed snapshot ships.
+          GITHUB_TOKEN: ${{ secrets.CHARTS_GITHUB_TOKEN }}
+
+      - name: Deploy to Cloudflare Pages
+        if: steps.check.outputs.deploy == 'true'
+        run: bun run deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

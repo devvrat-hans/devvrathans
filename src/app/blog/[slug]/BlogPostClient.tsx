@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, Clock, Link2 } from "lucide-react";
 import TableOfContents from "@/components/TableOfContents";
+import NewsletterCard from "@/components/NewsletterCard";
 import SidebarToc from "@/components/SidebarToc";
 import { copyToClipboard } from "@/components/Toaster";
 import { XIcon, LinkedinIcon, LogoMark } from "@/components/icons";
@@ -128,6 +129,10 @@ export default function BlogPostClient({ post, posts }: { post: BlogPost; posts:
               <span className="h-px flex-1 bg-hairline" aria-hidden="true" />
               <span className="font-mono text-xs text-mute">thanks for reading</span>
               <span className="h-px flex-1 bg-hairline" aria-hidden="true" />
+            </div>
+
+            <div className="mt-10">
+              <NewsletterCard source={`blog:${post.slug}`} />
             </div>
 
             {(newerPost || olderPost) && (

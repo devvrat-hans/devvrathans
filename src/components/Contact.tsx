@@ -11,13 +11,13 @@ import { useLocalTime } from "./useLocalTime";
 import { EMAIL, SOCIALS } from "@/lib/site";
 
 /** Copy button that confirms inline (icon + label swap) in addition to the global toast. */
-function CopyEmailButton() {
+export function CopyEmailButton({ email = EMAIL }: { email?: string }) {
   const [copied, setCopied] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout>>(undefined);
   useEffect(() => () => clearTimeout(timer.current), []);
 
   const onCopy = async () => {
-    await copyToClipboard(EMAIL, "Email copied");
+    await copyToClipboard(email, "Email copied");
     setCopied(true);
     clearTimeout(timer.current);
     timer.current = setTimeout(() => setCopied(false), 2000);

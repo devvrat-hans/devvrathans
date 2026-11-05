@@ -5,29 +5,37 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ArrowUp, ArrowUpRight } from "lucide-react";
 import { GithubIcon, LinkedinIcon, LogoMark, XIcon } from "./icons";
-import { EMAIL, SECTIONS, SOCIALS } from "@/lib/site";
+import { useSide } from "./useSide";
+import { ME_SECTIONS, SECTIONS, SOCIALS } from "@/lib/site";
+import { ABACK } from "@/lib/aback";
 
 export default function Footer() {
   const pathname = usePathname() || "/";
-  const prefix = pathname === "/" ? "" : "/";
+  const { side, href: home, email } = useSide();
+  // Section anchors resolve against the side's home page, wherever the footer is rendered.
+  const onHome = pathname === home || pathname === `${home}/`;
+  const prefix = onHome ? "" : home === "/" ? "/" : `${home}/`;
 
   const socials = [
     { ...SOCIALS.github, Icon: GithubIcon },
     { ...SOCIALS.linkedin, Icon: LinkedinIcon },
     { ...SOCIALS.x, Icon: XIcon },
   ];
+  const me = side === "me";
 
   return (
     <footer className="divider bg-canvas">
       <div className="mx-auto max-w-6xl px-6 py-14">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div>
-            <Link href="/" className="inline-flex items-center gap-2.5 text-sm font-semibold tracking-tight text-ink-light">
+            <Link href={home} className="inline-flex items-center gap-2.5 text-sm font-semibold tracking-tight text-ink-light">
               <LogoMark />
               Devvrat Hans
             </Link>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-body">
-              Software engineer building agentic AI, governance tooling, and full-stack products.
+              {me
+                ? "Building Aback Group in public. Writing about products, growth, and what shipping them teaches me."
+                : "Software engineer building agentic AI, governance tooling, and full-stack products."}
             </p>
             <div className="mt-5 flex items-center gap-2">
               {socials.map(({ label, href, Icon }) => (
@@ -45,24 +53,48 @@ export default function Footer() {
             </div>
           </div>
 
-          <FooterColumn title="Sections">
-            {SECTIONS.slice(0, 4).map((s) => (
-              <FooterLink key={s.id} href={`${prefix}#${s.id}`}>
-                {s.label}
-              </FooterLink>
-            ))}
-          </FooterColumn>
+          {me ? (
+            <>
+              <FooterColumn title="Real me">
+                {ME_SECTIONS.slice(0, 2).map((s) => (
+                  <FooterLink key={s.id} href={`${prefix}#${s.id}`}>
+                    {s.label}
+                  </FooterLink>
+                ))}
+                <FooterLink href="/blog">Writing</FooterLink>
+                <FooterLink href="/notes">Notes</FooterLink>
+              </FooterColumn>
 
-          <FooterColumn title="More">
-            <FooterLink href="/blog">Blog</FooterLink>
-            <FooterLink href="/resume">Resume &amp; CV</FooterLink>
-            <FooterLink href={`${prefix}#activity`}>GitHub activity</FooterLink>
-            <FooterLink href={`${prefix}#contact`}>Contact</FooterLink>
-          </FooterColumn>
+              <FooterColumn title="More">
+                <FooterLink href="/newsletter">Newsletter</FooterLink>
+                <FooterLink href="/x">Sponsor on X</FooterLink>
+                <FooterLink href={ABACK.group.href}>{ABACK.group.domain}</FooterLink>
+                <FooterLink href="/">Portfolio</FooterLink>
+              </FooterColumn>
+            </>
+          ) : (
+            <>
+              <FooterColumn title="Sections">
+                {SECTIONS.slice(0, 4).map((s) => (
+                  <FooterLink key={s.id} href={`${prefix}#${s.id}`}>
+                    {s.label}
+                  </FooterLink>
+                ))}
+              </FooterColumn>
+
+              <FooterColumn title="More">
+                <FooterLink href="/resume">Resume &amp; CV</FooterLink>
+                <FooterLink href={`${prefix}#activity`}>GitHub activity</FooterLink>
+                <FooterLink href={`${prefix}#contact`}>Contact</FooterLink>
+                <FooterLink href="/blog">Blog</FooterLink>
+                <FooterLink href="/me">Real me</FooterLink>
+              </FooterColumn>
+            </>
+          )}
 
           <FooterColumn title="Get in touch">
-            <a href={`mailto:${EMAIL}`} className="break-all text-sm text-body transition-colors hover:text-ink-light">
-              {EMAIL}
+            <a href={`mailto:${email}`} className="break-all text-sm text-body transition-colors hover:text-ink-light">
+              {email}
             </a>
             <span className="text-sm text-mute">Gandhinagar, India</span>
           </FooterColumn>

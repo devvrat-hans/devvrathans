@@ -2,19 +2,9 @@ import "server-only";
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
-import MarkdownIt from "markdown-it";
+import { isoDate, renderMarkdown, type TocEntry } from "./markdown";
 
-const md = new MarkdownIt({
-  html: false,
-  breaks: true,
-  linkify: true,
-});
-
-export interface TocEntry {
-  id: string;
-  text: string;
-  level: number;
-}
+export type { TocEntry } from "./markdown";
 
 export interface BlogPost {
   slug: string;
@@ -41,46 +31,16 @@ export function getAllPosts(): BlogPost[] {
       const filePath = path.join(postsDir, file);
       const fileContent = fs.readFileSync(filePath, "utf-8");
       const { data, content } = matter(fileContent);
-
-      const renderedContent = md.render(content);
-
-      // Extract headings and inject IDs into the HTML
-      const headings: TocEntry[] = [];
-      let contentWithIds = renderedContent;
-
-      const headingRegex = /<h([23])>([^<]+)<\/h\1>/g;
-      let match;
-      while ((match = headingRegex.exec(renderedContent)) !== null) {
-        const level = parseInt(match[1]);
-        const rawText = match[2].replace(/<[^>]+>/g, "");
-        const id = rawText
-          .toLowerCase()
-          .replace(/[^a-z0-9\s-]/g, "")
-          .replace(/\s+/g, "-")
-          .replace(/-+/g, "-")
-          .trim();
-        headings.push({ id, text: rawText, level });
-        // Hover-revealed "#" permalink after each heading (styled by .heading-anchor).
-        contentWithIds = contentWithIds.replace(
-          match[0],
-          `<h${level} id="${id}">${match[2]}<a class="heading-anchor" href="#${id}" aria-label="Link to this section">#</a></h${level}>`
-        );
-      }
-
-      // Wrap code blocks so they can carry a copy button (wired up in BlogPostClient).
-      contentWithIds = contentWithIds.replace(
-        /<pre>/g,
-        `<div class="code-block"><button type="button" class="code-copy" data-copy-code>Copy</button><pre>`
-      ).replace(/<\/pre>/g, "</pre></div>");
+      const { html, headings } = renderMarkdown(content);
 
       return {
         slug,
         title: data.title || slug,
-        date: data.date || "",
+        date: isoDate(data.date),
         readTime: data.readTime || "5 min read",
         tags: data.tags || [],
         excerpt: data.excerpt || "",
-        content: contentWithIds,
+        content: html,
         headings,
       };
     })

@@ -4,18 +4,19 @@ import { useEffect, useState } from "react";
 import { SECTIONS } from "@/lib/site";
 
 /**
- * Scroll-spy for the home page: returns the id of the section currently
- * crossing the middle band of the viewport, or "" when above the first one.
+ * Scroll-spy for a sectioned page (the home page by default, or /me with ME_SECTIONS): returns
+ * the id of the section currently crossing the middle band of the viewport, or "" when above
+ * the first one.
  */
-export function useActiveSection(enabled: boolean): string {
+export function useActiveSection(enabled: boolean, sections: readonly { id: string }[] = SECTIONS): string {
   const [active, setActive] = useState("");
 
   useEffect(() => {
     if (!enabled) return;
 
-    const elements = SECTIONS.map((s) => document.getElementById(s.id)).filter(
-      (el): el is HTMLElement => el !== null
-    );
+    const elements = sections
+      .map((s) => document.getElementById(s.id))
+      .filter((el): el is HTMLElement => el !== null);
     if (!elements.length) return;
 
     const observer = new IntersectionObserver(
@@ -39,7 +40,7 @@ export function useActiveSection(enabled: boolean): string {
       observer.disconnect();
       window.removeEventListener("scroll", onScroll);
     };
-  }, [enabled]);
+  }, [enabled, sections]);
 
   return enabled ? active : "";
 }

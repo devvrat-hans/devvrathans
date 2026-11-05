@@ -15,25 +15,33 @@ import {
   Home,
   Layers,
   Mail,
+  Megaphone,
   Moon,
+  NotebookPen,
+  Rocket,
+  Route,
   Search,
   Activity,
+  Sparkles,
   Terminal,
   User,
+  Wrench,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { useTheme } from "./ThemeProvider";
 import { useMode } from "./ModeProvider";
 import { GithubIcon, LinkedinIcon, XIcon } from "./icons";
 import { copyToClipboard } from "./Toaster";
-import { EMAIL, SOCIALS } from "@/lib/site";
+import { useSide } from "./useSide";
+import { ABACK, PRODUCTS } from "@/lib/aback";
+import { SOCIALS } from "@/lib/site";
 
 export const OPEN_PALETTE_EVENT = "site:open-palette";
 
 type Command = {
   id: string;
   label: string;
-  group: "Navigate" | "Actions" | "Links";
+  group: "Navigate" | "Real me" | "Actions" | "Links";
   icon: LucideIcon | ((p: { size?: number }) => React.ReactElement);
   keywords?: string;
   hint?: string;
@@ -52,6 +60,8 @@ export default function CommandPalette() {
   const pathname = usePathname() || "/";
   const { theme, toggleTheme } = useTheme();
   const { mode, setMode } = useMode();
+  // Copy/send email use the address of the side you're on: portfolio (gmail) or real me (aback.ai).
+  const { email } = useSide();
 
   const close = useCallback(() => setOpen(false), []);
   // Mirror of `open` for the global key handler, which is registered once.
@@ -66,9 +76,10 @@ export default function CommandPalette() {
   }, []);
 
   const goToSection = useCallback(
-    (id: string) => {
-      if (pathname !== "/") {
-        router.push(`/#${id}`);
+    (id: string, home: "/" | "/me" = "/") => {
+      const onHome = pathname === home || pathname === `${home}/`;
+      if (!onHome) {
+        router.push(home === "/" ? `/#${id}` : `${home}/#${id}`);
         return;
       }
       const wasTerminal = mode === "terminal";
@@ -104,10 +115,17 @@ export default function CommandPalette() {
       { id: "skills", label: "Skills", group: "Navigate", icon: Layers, keywords: "stack tech languages", run: () => goToSection("skills") },
       { id: "activity", label: "GitHub activity", group: "Navigate", icon: Activity, keywords: "contributions commits", run: () => goToSection("activity") },
       { id: "contact", label: "Contact", group: "Navigate", icon: Mail, keywords: "email reach hire", run: () => goToSection("contact") },
-      { id: "blog", label: "Blog", group: "Navigate", icon: BookOpen, keywords: "writing posts articles", run: () => goToRoute("/blog") },
       { id: "resume", label: "Resume & CV", group: "Navigate", icon: FileText, keywords: "cv pdf download", run: () => goToRoute("/resume") },
 
-      { id: "copy-email", label: "Copy email address", group: "Actions", icon: Copy, hint: EMAIL, run: () => copyToClipboard(EMAIL, "Email copied") },
+      { id: "me", label: "Real me", group: "Real me", icon: Sparkles, keywords: "personal aback building in public", run: () => goToRoute("/me") },
+      { id: "journey", label: "The Aback journey", group: "Real me", icon: Route, keywords: "story timeline aback group milestones", run: () => goToSection("journey", "/me") },
+      { id: "products", label: "Products", group: "Real me", icon: Rocket, keywords: "aback tools launch building", run: () => goToSection("products", "/me") },
+      { id: "blog", label: "Writing", group: "Real me", icon: BookOpen, keywords: "blog posts articles", run: () => goToRoute("/blog") },
+      { id: "notes", label: "Notes", group: "Real me", icon: NotebookPen, keywords: "notion notebook til", run: () => goToRoute("/notes") },
+      { id: "newsletter", label: "Newsletter", group: "Real me", icon: Mail, keywords: "subscribe email biweekly", run: () => goToRoute("/newsletter") },
+      { id: "sponsor", label: "Promotion on X (rates)", group: "Real me", icon: Megaphone, keywords: "sponsor sponsorship advertise twitter rates /x", run: () => goToRoute("/x") },
+
+      { id: "copy-email", label: "Copy email address", group: "Actions", icon: Copy, hint: email, run: () => copyToClipboard(email, "Email copied") },
       { id: "theme", label: `Switch to ${theme === "dark" ? "light" : "dark"} theme`, group: "Actions", icon: Moon, keywords: "dark light mode appearance", run: toggleTheme },
       {
         id: "terminal",
@@ -122,9 +140,19 @@ export default function CommandPalette() {
       { id: "github", label: "GitHub", group: "Links", icon: GithubIcon, hint: SOCIALS.github.handle, run: () => openExternal(SOCIALS.github.href) },
       { id: "linkedin", label: "LinkedIn", group: "Links", icon: LinkedinIcon, hint: SOCIALS.linkedin.handle, run: () => openExternal(SOCIALS.linkedin.href) },
       { id: "x", label: "X / Twitter", group: "Links", icon: XIcon, hint: SOCIALS.x.handle, run: () => openExternal(SOCIALS.x.href) },
-      { id: "email", label: "Send an email", group: "Links", icon: Mail, run: () => (window.location.href = `mailto:${EMAIL}`) },
+      { id: "aback", label: ABACK.group.name, group: "Links", icon: Layers, hint: ABACK.group.domain, keywords: "aback group company", run: () => openExternal(ABACK.group.href) },
+      ...PRODUCTS.filter((p) => p.href).map((p) => ({
+        id: `product-${p.name}`,
+        label: p.name,
+        group: "Links" as const,
+        icon: Wrench,
+        hint: p.href!.replace(/^https?:\/\//, ""),
+        keywords: `aback product ${p.category}`,
+        run: () => openExternal(p.href!),
+      })),
+      { id: "email", label: "Send an email", group: "Links", icon: Mail, hint: email, run: () => (window.location.href = `mailto:${email}`) },
     ],
-    [pathname, goToSection, goToRoute, theme, toggleTheme, mode, setMode]
+    [pathname, goToSection, goToRoute, theme, toggleTheme, mode, setMode, email]
   );
 
   const filtered = useMemo(() => {

@@ -8,7 +8,7 @@ Two separate Cloudflare pieces:
 | Piece | What it is | Where it runs |
 |---|---|---|
 | **Pages project `devvrathans`** | The static site itself (`out/`) | Cloudflare Pages |
-| **Worker `devvrathans-charts`** | Serves fresh GitHub heatmap JSON once a day | Cloudflare Workers + KV |
+| **Worker `devvrathans-charts`** | Serves fresh GitHub heatmap JSON once a day, and takes newsletter sign-ups at `/api/newsletter` | Cloudflare Workers + KV |
 
 The site works without the Worker — it just falls back to a snapshot frozen at build time. The
 Worker is what makes the heatmap update itself daily.
@@ -22,6 +22,9 @@ Worker is what makes the heatmap update itself daily.
 - [ ] `bun run worker:deploy` — [step 5](#5-deploy-the-worker)
 - [ ] Redeploy the Worker so the `routes` block in `worker/wrangler.jsonc` goes live — [step 6](#6-one-time-point-the-site-at-the-worker)
 - [ ] `bun run build && bun run deploy` — [step 7](#7-deploy-the-site)
+- [ ] Newsletter: create the `NEWSLETTER` KV namespace and the export token, then redeploy the Worker. See [Newsletter sign-ups](#newsletter-sign-ups-one-time)
+- [ ] Optional: Notion notes. Add `NOTION_TOKEN` and `NOTION_NOTES_DATABASE_ID` to `.env.local` (setup in [README.md](README.md#notes-from-notion))
+- [ ] Optional: let those notes publish themselves from GitHub Actions. See [Notes publish themselves](#notes-publish-themselves-one-time)
 - [ ] Confirm the header check in step 6 — this is what proves the heatmap is live
 
 Every deploy after that is just `bun run build && bun run deploy`.
@@ -164,7 +167,7 @@ Works, but the route above is cleaner — same-origin, no rebuild needed to chan
 
 ```bash
 bun run build     # OG image + heatmap snapshot + static export to out/
-bun run deploy    # wrangler pages deploy out --project-name=devvrathans --branch=production
+bun run deploy    # wrangler pages deploy, tagged with the commit (scripts/deploy-pages.mjs)
 ```
 
 Then confirm:
@@ -183,9 +186,106 @@ repo **or** skip and use the `wrangler pages deploy` command above, which create
 project from the CLI. Then attach the custom domain `devvrathans.com` under the project's
 **Custom domains** tab.
 
-You deploy manually, so Cloudflare's build settings and environment variables are **not** used —
-`bun run build` runs on your machine and reads `.env.local`.
+Builds run on your machine (and in GitHub Actions for notes, see below), never on Cloudflare, so
+Cloudflare's build settings and environment variables are **not** used. `bun run build` reads
+`.env.local`.
 </details>
+
+## Newsletter sign-ups (one-time)
+
+The forms on the real-me pages post to `devvrathans.com/api/newsletter`. The same Worker answers it
+through the `devvrathans.com/api/*` route in `worker/wrangler.jsonc`, and stores subscribers in their
+own KV namespace.
+
+```bash
+bunx wrangler kv namespace create NEWSLETTER --config worker/wrangler.jsonc
+# paste the printed id over REPLACE_WITH_NEWSLETTER_KV_ID in worker/wrangler.jsonc
+
+bunx wrangler secret put NEWSLETTER_ADMIN_TOKEN --config worker/wrangler.jsonc
+# any long random string, e.g. the output of: openssl rand -hex 32
+
+bun run worker:deploy
+```
+
+> Until the placeholder id is replaced, `bun run worker:deploy` is rejected by Cloudflare, so do
+> this before the next Worker deploy.
+
+Confirm it took (use your own address, then check the export):
+
+```bash
+curl -s https://devvrathans.com/api/newsletter -H 'Content-Type: application/json' \
+  -H 'Origin: https://devvrathans.com' -d '{"email":"you@example.com","source":"deploy-check"}'
+# expect {"ok":true} (or {"ok":true,"already":true} the second time)
+
+curl -s -H "Authorization: Bearer <NEWSLETTER_ADMIN_TOKEN>" https://devvrathans.com/api/newsletter/export
+# expect a CSV with your address
+```
+
+## Notes publish themselves (one-time)
+
+With this set up, ticking **Published** in Notion is all it takes. The **Publish notes** workflow
+([`.github/workflows/publish-notes.yml`](.github/workflows/publish-notes.yml)) runs every 3 hours:
+it syncs the notes database, commits what changed to `main` as `github-actions[bot]`, then builds
+and deploys `main` if the live site doesn't have those notes yet. Until the secrets below exist it
+does nothing and stays green, so it's fine to push it before finishing this.
+
+**1. A Cloudflare API token.** Dashboard → My Profile → API Tokens → Create Token → Create Custom
+Token, with one permission: **Account / Cloudflare Pages / Edit**, for the account that owns the
+`devvrathans` Pages project. With more than one Cloudflare account, double-check it's that one: its
+id is in the dashboard URL while the project is open (`dash.cloudflare.com/<account id>/...`).
+
+**2. Repository secrets.** GitHub → this repo → Settings → Secrets and variables → Actions, or from
+this folder (each command asks for the value):
+
+```bash
+gh secret set NOTION_TOKEN               # same value as in .env.local
+gh secret set NOTION_NOTES_DATABASE_ID   # same value as in .env.local
+gh secret set CLOUDFLARE_API_TOKEN       # the token from step 1
+gh secret set CLOUDFLARE_ACCOUNT_ID
+gh secret set CHARTS_GITHUB_TOKEN        # optional: the GITHUB_TOKEN from .env.local
+```
+
+`CHARTS_GITHUB_TOKEN` refreshes the heatmap snapshot when the workflow builds. Without it the
+committed snapshot ships, which only shows if the Worker is down.
+
+**3. Deploy once from a pushed, fully committed `main`:**
+
+```bash
+git status                         # should say there is nothing to commit
+git push
+bun run build && bun run deploy
+```
+
+`bun run deploy` records on Cloudflare which commit a deploy came from and whether it had
+uncommitted changes. The workflow checks that before every deploy (below), and deploys made before
+this setup don't record it properly, so it needs one that does.
+
+**4. Try it:** GitHub → Actions → Publish notes → Run workflow, or `gh workflow run publish-notes.yml`.
+That's also how to publish a note right away instead of waiting for the next run.
+
+### How it avoids undoing your work
+
+The workflow always deploys `main`. If the live site has something `main` doesn't, like a deploy
+from your machine with uncommitted changes or with commits you haven't pushed, deploying `main`
+would quietly take it back off the site. So it checks the live deploy first:
+
+| The live site came from | What the workflow does |
+|---|---|
+| A commit on `main`, with everything committed | Deploys whenever `main` has notes the live site doesn't |
+| A commit on `main` plus uncommitted changes | Fails if there are notes to publish, and says why. Commit and push, then `bun run build && bun run deploy` |
+| A commit you haven't pushed yet | Skips, and carries on once you push |
+
+Files the build rewrites by itself (heatmap snapshot, OG images, icons, synced notes) and files that
+never reach the site (docs, `worker/`, `.claude/`, `.github/`) don't count as uncommitted changes.
+**Run workflow** with **force** ticked skips the check and deploys `main` as it is.
+
+### Living with it
+
+- The workflow pushes note commits to `main`, so `git pull --rebase` before you push.
+- Anything pushed to `main` goes live with the next note, so keep `main` deployable.
+- Change the schedule with the `cron` line in the workflow (times are UTC). `17 * * * *` is hourly.
+- GitHub pauses scheduled workflows in public repos after 60 days without activity. If notes stop
+  appearing after a quiet spell, turn it back on under Actions → Publish notes.
 
 ---
 
@@ -196,6 +296,9 @@ Content or code change:
 ```bash
 bun run build && bun run deploy
 ```
+
+A note published in Notion needs nothing once [Notes publish themselves](#notes-publish-themselves-one-time)
+is set up: it goes live within about 3 hours. Until then, the same build and deploy publishes it.
 
 Worker change: `bun run worker:deploy`. New resume/CV PDF: replace `public/resume.pdf` /
 `public/cv.pdf`, then rebuild and redeploy (see the PDF note at the bottom).
@@ -235,6 +338,12 @@ bun run build
 | 401/403 from GitHub | `GITHUB_TOKEN` expired or lacks `read:user`. Re-run step 4 |
 | Build says "GITHUB_TOKEN not set" | `.env.local` missing or the token is quoted oddly. It must be `GITHUB_TOKEN=ghp_...` with no quotes |
 | `wrangler login` picks the wrong account | Cloudflare dashboard → Member settings → API Tokens → Create Token (Account: Workers Scripts edit, KV edit) → `wrangler login` accepts it via `CLOUDFLARE_API_TOKEN` |
+| `Authentication error [code: 10000]` on deploy | Wrangler is logged in to a different Cloudflare account from the one that owns this site. `bunx wrangler whoami` shows which; `bunx wrangler login` and pick the right one |
+| Publish notes run: notice "NOTION_TOKEN isn't set yet" | The repository secrets aren't there yet. See [Notes publish themselves](#notes-publish-themselves-one-time), step 2 |
+| Publish notes fails at "Sync notes from Notion" | The log line says which: a wrong `NOTION_TOKEN`, a database not shared with the integration, or no `Published` property. Same fixes as for `bun run notes:sync` |
+| Publish notes fails at "Check the live site", "plus uncommitted changes" | The live site has work `main` doesn't. Commit and push it, then `bun run build && bun run deploy`. Or Run workflow with force to publish `main` as it is |
+| Publish notes fails at "Commit note changes to main" with a rebase conflict | A synced note was edited by hand on `main`. Notion owns those files: make the edit in Notion, revert it on `main`, then run again |
+| Publish notes fails at "Check the live site" with HTTP 403, or at "Deploy to Cloudflare Pages" | `CLOUDFLARE_API_TOKEN` needs Cloudflare Pages: Edit, and `CLOUDFLARE_ACCOUNT_ID` must be the account that owns the project. A failed deploy is retried by the next run |
 | Terminal/heatmap empty in browser | CORS on the Worker endpoint, or an ad blocker. `curl` the endpoint directly to isolate |
 
 ## Local development

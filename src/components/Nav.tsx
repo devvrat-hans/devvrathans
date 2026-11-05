@@ -7,10 +7,13 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTheme } from "./ThemeProvider";
 import { useMode } from "./ModeProvider";
-import { GithubIcon, LogoMark } from "./icons";
+import { GithubIcon, LogoMark, XIcon } from "./icons";
 import { OPEN_PALETTE_EVENT } from "./CommandPalette";
 import { useActiveSection } from "./useActiveSection";
-import { SOCIALS } from "@/lib/site";
+import { useSide } from "./useSide";
+import SideSwitch from "./SideSwitch";
+import { ME_SECTIONS, SECTIONS, SOCIALS } from "@/lib/site";
+import { ABACK } from "@/lib/aback";
 
 type NavLink = { label: string; href: string; section?: string; route?: string };
 
@@ -20,8 +23,12 @@ export default function Nav() {
   const { theme, toggleTheme } = useTheme();
   const { mode, toggleMode, setMode } = useMode();
   const pathname = usePathname() || "/";
+  const { side, href: sideHome } = useSide();
   const isHome = pathname === "/";
-  const activeSection = useActiveSection(isHome && mode === "website");
+  const isMeHome = pathname === "/me" || pathname === "/me/";
+  // The page whose sections the nav links scroll to: / on the portfolio side, /me on the other.
+  const onSectionPage = side === "me" ? isMeHome : isHome;
+  const activeSection = useActiveSection(onSectionPage && mode === "website", side === "me" ? ME_SECTIONS : SECTIONS);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -43,18 +50,39 @@ export default function Nav() {
     };
   }, [mobileOpen]);
 
-  const links: NavLink[] = [
-    { label: "About", href: isHome ? "#about" : "/#about", section: "about" },
-    { label: "Experience", href: isHome ? "#experience" : "/#experience", section: "experience" },
-    { label: "Projects", href: isHome ? "#projects" : "/#projects", section: "projects" },
-    { label: "Skills", href: isHome ? "#skills" : "/#skills", section: "skills" },
-    { label: "Blog", href: "/blog", route: "/blog" },
-    { label: "Resume", href: "/resume", route: "/resume" },
-  ];
+  // Section links point at the side's own home page: "#id" when already there, "/me/#id" from elsewhere.
+  const section = (label: string, id: string): NavLink => ({
+    label,
+    href: onSectionPage ? `#${id}` : `${sideHome === "/" ? "" : sideHome}/#${id}`,
+    section: id,
+  });
+
+  const links: NavLink[] =
+    side === "me"
+      ? [
+          section("Journey", "journey"),
+          section("Products", "products"),
+          { label: "Writing", href: "/blog", route: "/blog" },
+          { label: "Notes", href: "/notes", route: "/notes" },
+          { label: "Sponsor", href: "/x", route: "/x" },
+        ]
+      : [
+          section("About", "about"),
+          section("Experience", "experience"),
+          section("Projects", "projects"),
+          section("Skills", "skills"),
+          { label: "Resume", href: "/resume", route: "/resume" },
+        ];
+
+  // Extra rows that only the mobile menu has room for.
+  const mobileExtras: NavLink[] =
+    side === "me"
+      ? [{ label: "Newsletter", href: "/newsletter", route: "/newsletter" }, section("Say hi", "say-hi")]
+      : [section("Contact", "contact")];
 
   const isActive = (link: NavLink) => {
     if (link.route) return pathname.startsWith(link.route);
-    return isHome && mode === "website" && activeSection === link.section;
+    return onSectionPage && mode === "website" && activeSection === link.section;
   };
 
   const handleClick = (e: React.MouseEvent, link?: NavLink) => {
@@ -62,7 +90,7 @@ export default function Nav() {
     if (mode !== "terminal") return;
     // Leaving the terminal: switch modes first, then scroll once the page has rendered.
     setMode("website");
-    if (link?.section && isHome) {
+    if (link?.section && onSectionPage) {
       e.preventDefault();
       requestAnimationFrame(() =>
         setTimeout(() => document.getElementById(link.section!)?.scrollIntoView({ behavior: "smooth" }), 350)
@@ -93,16 +121,20 @@ export default function Nav() {
         }`}
       >
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
-          {/* Logo */}
-          <Link
-            href="/"
-            onClick={(e) => handleClick(e)}
-            className="group flex items-center gap-2.5 text-ink-light font-semibold text-sm tracking-tight"
-            aria-label="Devvrat Hans, home"
-          >
-            <LogoMark interactive />
-            <span>Devvrat Hans</span>
-          </Link>
+          {/* Logo + version switch */}
+          <div className="flex min-w-0 items-center gap-4">
+            <Link
+              href={sideHome}
+              onClick={(e) => handleClick(e)}
+              className="group flex shrink-0 items-center gap-2.5 text-ink-light font-semibold text-sm tracking-tight"
+              aria-label="Devvrat Hans, home"
+            >
+              <LogoMark interactive />
+              <span>Devvrat Hans</span>
+            </Link>
+            <span className="hidden h-5 w-px bg-hairline-strong md:block" aria-hidden="true" />
+            <SideSwitch className="hidden md:inline-flex" />
+          </div>
 
           {/* Desktop links */}
           <div className="hidden lg:flex items-center gap-1">
@@ -135,7 +167,7 @@ export default function Nav() {
           <div className="flex items-center gap-1.5 sm:gap-2">
             <button
               onClick={openPalette}
-              className="hidden sm:flex items-center gap-2 h-9 border border-hairline bg-canvas/60 pl-3 pr-1.5 text-xs text-mute hover:text-ink-light hover:border-hairline-strong transition-all cursor-pointer"
+              className="hidden sm:flex lg:hidden xl:flex items-center gap-2 h-9 border border-hairline bg-canvas/60 pl-3 pr-1.5 text-xs text-mute hover:text-ink-light hover:border-hairline-strong transition-all cursor-pointer"
               aria-label="Open command menu"
             >
               <Search size={13} />
@@ -144,7 +176,7 @@ export default function Nav() {
                 ⌘K
               </kbd>
             </button>
-            <button onClick={openPalette} className={`sm:hidden ${iconBtn}`} aria-label="Open command menu">
+            <button onClick={openPalette} className={`sm:hidden lg:flex xl:hidden ${iconBtn}`} aria-label="Open command menu">
               <Search size={15} />
             </button>
 
@@ -188,20 +220,32 @@ export default function Nav() {
                   ) : (
                     <Globe size={13} className="text-accent" />
                   )}
-                  <span className="hidden sm:inline">{mode === "website" ? "Terminal" : "Website"}</span>
+                  <span className="hidden sm:inline lg:hidden xl:inline">{mode === "website" ? "Terminal" : "Website"}</span>
                 </motion.span>
               </AnimatePresence>
             </button>
 
-            <a
-              href={SOCIALS.github.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`hidden md:flex ${iconBtn}`}
-              aria-label="GitHub profile (opens in a new tab)"
-            >
-              <GithubIcon size={15} />
-            </a>
+            {side === "me" ? (
+              <a
+                href={SOCIALS.x.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`hidden xl:flex ${iconBtn}`}
+                aria-label="X profile (opens in a new tab)"
+              >
+                <XIcon size={14} />
+              </a>
+            ) : (
+              <a
+                href={SOCIALS.github.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`hidden xl:flex ${iconBtn}`}
+                aria-label="GitHub profile (opens in a new tab)"
+              >
+                <GithubIcon size={15} />
+              </a>
+            )}
 
             <button
               onClick={() => setMobileOpen((o) => !o)}
@@ -238,8 +282,9 @@ export default function Nav() {
               className="lg:hidden fixed left-0 right-0 top-16 z-40 border-b border-hairline bg-canvas/95 backdrop-blur-xl"
             >
               <div className="mx-auto max-w-6xl px-4 sm:px-6 py-4">
+                <SideSwitch pillId="side-pill-mobile" className="mb-4 flex w-full md:hidden" onNavigate={() => setMobileOpen(false)} />
                 <ul className="grid gap-1">
-                  {[...links, { label: "Contact", href: isHome ? "#contact" : "/#contact", section: "contact" }].map(
+                  {[...links, ...mobileExtras].map(
                     (link, i) => {
                       const active = isActive(link);
                       return (
@@ -268,22 +313,26 @@ export default function Nav() {
                   )}
                 </ul>
                 <div className="mt-4 flex items-center gap-2 border-t border-hairline pt-4">
-                  <a
-                    href={SOCIALS.github.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex flex-1 items-center justify-center gap-2 border border-hairline py-2.5 text-sm text-body hover:text-ink-light"
-                  >
-                    <GithubIcon size={14} /> GitHub <ArrowUpRight size={12} className="opacity-60" />
-                  </a>
-                  <a
-                    href={SOCIALS.linkedin.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex flex-1 items-center justify-center gap-2 border border-hairline py-2.5 text-sm text-body hover:text-ink-light"
-                  >
-                    LinkedIn <ArrowUpRight size={12} className="opacity-60" />
-                  </a>
+                  {(side === "me"
+                    ? [
+                        { label: "X", href: SOCIALS.x.href, Icon: XIcon },
+                        { label: ABACK.group.domain, href: ABACK.group.href, Icon: null },
+                      ]
+                    : [
+                        { label: "GitHub", href: SOCIALS.github.href, Icon: GithubIcon },
+                        { label: "LinkedIn", href: SOCIALS.linkedin.href, Icon: null },
+                      ]
+                  ).map(({ label, href, Icon }) => (
+                    <a
+                      key={label}
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex flex-1 items-center justify-center gap-2 border border-hairline py-2.5 text-sm text-body hover:text-ink-light"
+                    >
+                      {Icon && <Icon size={14} />} {label} <ArrowUpRight size={12} className="opacity-60" />
+                    </a>
+                  ))}
                 </div>
               </div>
             </motion.div>

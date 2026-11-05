@@ -20,6 +20,13 @@ export const OG_IMAGE = {
   alt: "Devvrat Hans: software engineer building agentic AI, AI governance & evaluation tooling, and full-stack products",
 };
 
+/** Per-page social cards, rendered alongside og.png by the same script. */
+const OG_IMAGES = {
+  default: OG_IMAGE,
+  me: { ...OG_IMAGE, url: "/og-me.png", alt: "Devvrat Hans: building Aback in public. Products, real numbers, writing and notes" },
+  x: { ...OG_IMAGE, url: "/og-x.png", alt: "Promotion on X: sponsored post rates from Devvrat Hans (@DevvratHans)" },
+};
+
 const LOCALE = "en_US";
 const X_HANDLE = SOCIALS.x.handle;
 
@@ -36,17 +43,20 @@ interface PageSeo {
   socialTitle?: string;
   /** Marks the page as an og:type=article. */
   article?: { publishedTime?: string; tags?: string[] };
+  /** Which social card to use: the portfolio one by default, or a real-me side variant. */
+  image?: keyof typeof OG_IMAGES;
 }
 
-export function pageMetadata({ title, description, path, socialTitle, article }: PageSeo): Metadata {
+export function pageMetadata({ title, description, path, socialTitle, article, image = "default" }: PageSeo): Metadata {
   const cardTitle = socialTitle ?? title;
+  const card = OG_IMAGES[image];
   const og = {
     title: cardTitle,
     description,
     url: path,
     siteName: SITE_NAME,
     locale: LOCALE,
-    images: [OG_IMAGE],
+    images: [card],
   };
 
   return {
@@ -68,7 +78,7 @@ export function pageMetadata({ title, description, path, socialTitle, article }:
       creator: X_HANDLE,
       title: cardTitle,
       description,
-      images: [{ url: OG_IMAGE.url, alt: OG_IMAGE.alt }],
+      images: [{ url: card.url, alt: card.alt }],
     },
   };
 }

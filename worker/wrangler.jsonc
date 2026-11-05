@@ -1,9 +1,11 @@
 {
-	// GitHub contribution heatmap data feed.
+	// GitHub contribution heatmap data feed + newsletter sign-ups (/api/newsletter).
 	//
 	// One-time setup (see worker/README.md):
 	//   bunx wrangler kv namespace create GITHUB_CHARTS   -> copy the printed id below
+	//   bunx wrangler kv namespace create NEWSLETTER      -> copy the printed id below
 	//   bunx wrangler secret put GITHUB_TOKEN
+	//   bunx wrangler secret put NEWSLETTER_ADMIN_TOKEN   (any long random string; guards the CSV export)
 	//   bun run worker:deploy
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "devvrathans-charts",
@@ -25,6 +27,13 @@
 			"binding": "GITHUB_CHARTS",
 			"id": "41f0a682a4604ef49d43f15bfcfcdfe9",
 			"remote": false
+		},
+		// Newsletter subscribers. Replace the placeholder with the id printed by
+		// `bunx wrangler kv namespace create NEWSLETTER` before deploying.
+		{
+			"binding": "NEWSLETTER",
+			"id": "REPLACE_WITH_NEWSLETTER_KV_ID",
+			"remote": false
 		}
 	],
 	// Serves the heatmap JSON from devvrathans.com/github-contributions.json, taking that path
@@ -32,6 +41,11 @@
 	"routes": [
 		{
 			"pattern": "devvrathans.com/github-contributions.json",
+			"zone_name": "devvrathans.com"
+		},
+		// Newsletter sign-ups from the site's forms, same origin.
+		{
+			"pattern": "devvrathans.com/api/*",
 			"zone_name": "devvrathans.com"
 		}
 	],

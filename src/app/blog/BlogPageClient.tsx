@@ -7,6 +7,7 @@ import { ArrowRight, Clock } from "lucide-react";
 import type { BlogPost } from "@/lib/blog-data";
 import { formatDate } from "@/lib/format";
 import { fadeUp, stagger, trackSpotlight } from "@/components/Section";
+import NewsletterCard from "@/components/NewsletterCard";
 
 export default function BlogPageClient({ posts }: { posts: BlogPost[] }) {
   const [tag, setTag] = useState<string | null>(null);
@@ -116,6 +117,10 @@ export default function BlogPageClient({ posts }: { posts: BlogPost[] }) {
               ))}
             </AnimatePresence>
           </motion.ol>
+
+          <div className="mt-16">
+            <NewsletterCard source="blog" title="New posts, every other week." />
+          </div>
         </div>
       </main>
     </div>

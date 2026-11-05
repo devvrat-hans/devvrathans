@@ -1,5 +1,8 @@
 /**
- * Generates public/og.png (1200x630), the site's Open Graph / X card image.
+ * Generates the site's Open Graph / X card images (1200x630):
+ *   public/og.png      portfolio side (default for every page)
+ *   public/og-me.png   real-me side: /me, /notes, /newsletter
+ *   public/og-x.png    /x, the rate card for sponsored posts
  *
  * Rendered with ImageResponse (Satori + resvg) at build time so the exported static site
  * ships a real .png with a correct content type on any static host.
@@ -155,80 +158,145 @@ const Monogram = (size) =>
 const line = (runs) =>
   h("div", {}, ...runs.map(([text, color], i) => createElement("span", { key: i, style: { color, whiteSpace: "pre" } }, text)));
 
-const element = h(
-  "div",
-  { width: "100%", height: "100%", position: "relative", background: C.canvas, fontFamily: "Geist" },
-
-  createElement("img", {
-    src: `data:image/svg+xml;base64,${Buffer.from(backgroundSvg).toString("base64")}`,
-    width: W,
-    height: H,
-    style: { position: "absolute", left: 0, top: 0 },
-  }),
-
-  // Top band: monogram + domain, credential on the right
+// Display title with the site's tight tracking. Tracking that tight also squeezes word spaces,
+// so each word after the first gets its space back as a margin. Tuned on "Devvrat Hans" at 158px
+// (tracking -9.2, word gap 46, optical inset -7) and scaled from there.
+const tuned = (value, size) => Math.round(((value * size) / 158) * 100) / 100;
+const Title = (words, size) =>
   h(
     "div",
     {
-      position: "absolute",
-      left: RAIL_L,
-      top: 0,
-      width: RAIL_R - RAIL_L,
-      height: TOP_RULE,
-      padding: `0 ${PAD}px`,
-      alignItems: "center",
-      justifyContent: "space-between",
+      fontSize: size,
+      fontWeight: 600,
+      letterSpacing: tuned(-9.2, size),
+      lineHeight: 0.9,
+      color: C.ink,
+      marginLeft: tuned(-7, size),
     },
-    h(
-      "div",
-      { alignItems: "center" },
-      Monogram(40),
-      h("div", { marginLeft: 16, fontFamily: "GeistMono", fontSize: 21, color: C.body }, "devvrathans.com"),
-    ),
-    h("div", { fontFamily: "GeistMono", fontSize: 19, color: C.mute, letterSpacing: 0.4 }, "B.TECH CSE · IIT GANDHINAGAR"),
-  ),
+    ...words.map((word, i) => (i === 0 ? word : h("span", { marginLeft: tuned(46, size) }, word))),
+    h("span", { color: C.accent }, "."),
+  );
 
-  // Name and positioning line, centred between the two rules
+const card = ({ domain, credential, title, titleSize, lines }) =>
   h(
     "div",
-    {
-      position: "absolute",
-      left: RAIL_L,
-      top: TOP_RULE,
-      width: RAIL_R - RAIL_L,
-      height: BOTTOM_RULE - TOP_RULE,
-      padding: `0 ${PAD}px`,
-      flexDirection: "column",
-      justifyContent: "center",
-    },
+    { width: "100%", height: "100%", position: "relative", background: C.canvas, fontFamily: "Geist" },
+
+    createElement("img", {
+      src: `data:image/svg+xml;base64,${Buffer.from(backgroundSvg).toString("base64")}`,
+      width: W,
+      height: H,
+      style: { position: "absolute", left: 0, top: 0 },
+    }),
+
+    // Top band: monogram + domain, credential on the right
     h(
       "div",
-      { fontSize: 158, fontWeight: 600, letterSpacing: -9.2, lineHeight: 0.9, color: C.ink, marginLeft: -7 },
-      "Devvrat",
-      // The tight tracking also squeezes the word space; give it back so the name reads at thumbnail size.
-      h("span", { marginLeft: 46 }, "Hans"),
-      h("span", { color: C.accent }, "."),
+      {
+        position: "absolute",
+        left: RAIL_L,
+        top: 0,
+        width: RAIL_R - RAIL_L,
+        height: TOP_RULE,
+        padding: `0 ${PAD}px`,
+        alignItems: "center",
+        justifyContent: "space-between",
+      },
+      h(
+        "div",
+        { alignItems: "center" },
+        Monogram(40),
+        h("div", { marginLeft: 16, fontFamily: "GeistMono", fontSize: 21, color: C.body }, domain),
+      ),
+      h("div", { fontFamily: "GeistMono", fontSize: 19, color: C.mute, letterSpacing: 0.4 }, credential),
     ),
+
+    // Title and supporting lines, centred between the two rules
     h(
       "div",
-      { flexDirection: "column", marginTop: 40, fontSize: 32, lineHeight: 1.4, letterSpacing: -0.4 },
-      line([
+      {
+        position: "absolute",
+        left: RAIL_L,
+        top: TOP_RULE,
+        width: RAIL_R - RAIL_L,
+        height: BOTTOM_RULE - TOP_RULE,
+        padding: `0 ${PAD}px`,
+        flexDirection: "column",
+        justifyContent: "center",
+      },
+      Title(title, titleSize),
+      h("div", { flexDirection: "column", marginTop: 40, fontSize: 32, lineHeight: 1.4, letterSpacing: -0.4 }, ...lines.map(line)),
+    ),
+  );
+
+const CARDS = [
+  {
+    file: "og.png",
+    domain: "devvrathans.com",
+    credential: "B.TECH CSE · IIT GANDHINAGAR",
+    title: ["Devvrat", "Hans"],
+    titleSize: 158,
+    lines: [
+      [
         ["Software engineer building ", C.body],
         ["agentic AI", C.ink],
         [",", C.body],
-      ]),
-      line([
+      ],
+      [
         ["AI governance & evaluation", C.ink],
         [" tooling, and ", C.body],
         ["full-stack products", C.ink],
         [".", C.body],
-      ]),
-    ),
-  ),
-);
+      ],
+    ],
+  },
+  {
+    file: "og-me.png",
+    domain: "devvrathans.com/me",
+    credential: "THE REAL ME",
+    title: ["Building", "Aback"],
+    titleSize: 136,
+    lines: [
+      [
+        ["Aback Tools", C.ink],
+        [" and ", C.body],
+        ["Aback Launch", C.ink],
+        [" are live. Real numbers,", C.body],
+      ],
+      [
+        ["writing and notes from ", C.body],
+        ["Devvrat Hans", C.ink],
+        [", in public.", C.body],
+      ],
+    ],
+  },
+  {
+    file: "og-x.png",
+    domain: "devvrathans.com/x",
+    credential: "SPONSORSHIPS",
+    title: ["Promotion", "on", "X"],
+    titleSize: 128,
+    lines: [
+      [
+        ["Sponsored ", C.body],
+        ["posts, quotes, reposts", C.ink],
+        [" and ", C.body],
+        ["pins", C.ink],
+        [".", C.body],
+      ],
+      [
+        ["Flat rates from ", C.body],
+        ["@DevvratHans", C.ink],
+        [", building Aback in public.", C.body],
+      ],
+    ],
+  },
+];
 
-const response = new ImageResponse(element, { width: W, height: H, fonts });
-const png = Buffer.from(await response.arrayBuffer());
 await mkdir(join(root, "public"), { recursive: true });
-await writeFile(join(root, "public/og.png"), png);
-console.log(`[generate-og] Wrote public/og.png (${(png.length / 1024).toFixed(1)} kB)`);
+for (const { file, ...content } of CARDS) {
+  const response = new ImageResponse(card(content), { width: W, height: H, fonts });
+  const png = Buffer.from(await response.arrayBuffer());
+  await writeFile(join(root, "public", file), png);
+  console.log(`[generate-og] Wrote public/${file} (${(png.length / 1024).toFixed(1)} kB)`);
+}

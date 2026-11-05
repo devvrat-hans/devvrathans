@@ -2,6 +2,8 @@
 
 import { useState, useRef, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
+import { JOURNEY, PRODUCTS } from "@/lib/aback";
 
 // ── Virtual Filesystem ──────────────────────────────────────────────
 interface FileNode {
@@ -470,6 +472,7 @@ const BOOT_LINES: TerminalLine[] = [
 ];
 
 export default function Terminal({ onClose }: { onClose: () => void }) {
+  const router = useRouter();
   const [lines, setLines] = useState<TerminalLine[]>(BOOT_LINES);
   const [input, setInput] = useState("");
   const [cwd, setCwd] = useState("~");
@@ -540,6 +543,8 @@ export default function Terminal({ onClose }: { onClose: () => void }) {
           { type: "output", text: "    contact                cd + cat contact" },
           { type: "output", text: "    resume                 open 1-page SWE resume (PDF)" },
           { type: "output", text: "    cv                     open 5-page master academic CV (PDF)" },
+          { type: "output", text: "    aback                  what I'm building at Aback Group" },
+          { type: "output", text: "    me                     leave for the real-me side of the site" },
           { type: "output", text: "" },
           { type: "output", text: "  SYSTEM" },
           { type: "output", text: "    clear                  clear terminal" },
@@ -863,6 +868,32 @@ export default function Terminal({ onClose }: { onClose: () => void }) {
         ];
       }
 
+      case "aback": {
+        const live = PRODUCTS.filter((p) => p.status === "live");
+        return [
+          { type: "success", text: "Aback Group: an independent technology group (aback.group)" },
+          { type: "output", text: "" },
+          { type: "output", text: "  PRODUCTS" },
+          ...live.map((p) => ({
+            type: "output" as const,
+            text: `    ${p.name.padEnd(16)}${(p.href ?? "").replace(/^https?:\/\//, "").padEnd(20)}${p.tagline}`,
+          })),
+          { type: "output", text: "    more             coming soon" },
+          { type: "output", text: "" },
+          { type: "output", text: "  JOURNEY" },
+          ...JOURNEY.map((m) => ({ type: "output" as const, text: `    ${m.date.padEnd(10)}${m.title}` })),
+          { type: "output", text: "" },
+          { type: "output", text: "  Type 'me' for the full story, products, writing and notes." },
+        ];
+      }
+
+      case "me":
+      case "realme": {
+        onClose();
+        router.push("/me");
+        return [];
+      }
+
       default:
         return [
           {
@@ -871,7 +902,7 @@ export default function Terminal({ onClose }: { onClose: () => void }) {
           },
         ];
     }
-  }, [cwd, history, onClose]);
+  }, [cwd, history, onClose, router]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -1071,7 +1102,7 @@ export default function Terminal({ onClose }: { onClose: () => void }) {
 
           {/* Quick commands, mainly for touch devices without a Tab key */}
           <div className="no-scrollbar flex items-center gap-1.5 overflow-x-auto border-t border-hairline bg-canvas-soft px-3 py-2">
-            {["help", "about", "experience", "projects", "skills", "contact", "resume", "clear", "exit"].map((cmd) => (
+            {["help", "about", "experience", "projects", "skills", "contact", "resume", "aback", "clear", "exit"].map((cmd) => (
               <button
                 key={cmd}
                 onClick={() => runQuick(cmd)}

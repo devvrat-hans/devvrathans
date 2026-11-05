@@ -1,15 +1,19 @@
 /**
- * GitHub contribution heatmap data feed.
+ * The site's small dynamic layer, in front of the static Cloudflare Pages build:
  *
- * Runs a daily cron trigger that pulls the contribution calendar via the GitHub
- * GraphQL API (including private contributions, so it needs a token) and stores
- * the result in KV. The site fetches this endpoint at runtime, so the heatmap
- * stays fresh without redeploying the site.
+ *   /github-contributions.json   GitHub contribution heatmap data feed (this file)
+ *   /api/newsletter              newsletter sign-ups and export (./newsletter.ts)
+ *
+ * The heatmap runs a daily cron trigger that pulls the contribution calendar via the GitHub
+ * GraphQL API (including private contributions, so it needs a token) and stores the result in
+ * KV. The site fetches this endpoint at runtime, so the heatmap stays fresh without
+ * redeploying the site.
  *
  * Deploy with: bun run worker:deploy  (see worker/README.md for one-time setup)
  */
+import { handleNewsletter, type NewsletterEnv } from "./newsletter";
 
-export interface Env {
+export interface Env extends NewsletterEnv {
   /** KV namespace holding the latest snapshot. Binding id lives in wrangler.jsonc. */
   GITHUB_CHARTS: KVNamespace;
   /** PAT with `read:user` scope. Set with `wrangler secret put GITHUB_TOKEN`. */
@@ -141,6 +145,8 @@ function stripBody(res: Response): Response {
 export default {
   async fetch(request, env, ctx): Promise<Response> {
     const url = new URL(request.url);
+
+    if (url.pathname.startsWith("/api/newsletter")) return handleNewsletter(request, env);
 
     if (request.method === "OPTIONS") {
       // 204 must not carry a body, so build the response directly.
