@@ -8,6 +8,7 @@ import { GithubIcon, LinkedinIcon, LogoMark, XIcon } from "./icons";
 import { useSide } from "./useSide";
 import { ME_SECTIONS, SECTIONS, SOCIALS } from "@/lib/site";
 import { ABACK } from "@/lib/aback";
+import AbackLinks from "./AbackLinks";
 
 export default function Footer() {
   const pathname = usePathname() || "/";
@@ -34,8 +35,8 @@ export default function Footer() {
             </Link>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-body">
               {me
-                ? "Building Aback Group in public. Writing about products, growth, and what shipping them teaches me."
-                : "Software engineer building agentic AI, governance tooling, and full-stack products."}
+                ? <AbackLinks text="Building Aback Group in public. Writing about products, growth, and what shipping them teaches me." />
+                :"Software engineer building agentic AI, governance tooling, and full-stack products."}
             </p>
             <div className="mt-5 flex items-center gap-2">
               {socials.map(({ label, href, Icon }) => (

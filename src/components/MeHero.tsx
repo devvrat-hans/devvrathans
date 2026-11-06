@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { ArrowDown, ArrowRight, ArrowUpRight, Mail } from "lucide-react";
 import Link from "next/link";
 import { XIcon } from "./icons";
+import AbackLinks from "./AbackLinks";
 import { useLocalTime } from "./useLocalTime";
 import { ABACK } from "@/lib/aback";
 import { SOCIALS } from "@/lib/site";
@@ -92,7 +93,7 @@ export default function MeHero() {
           >
             <p className="max-w-xl text-lg leading-[1.6] text-body text-pretty sm:text-xl">
               Hey, I&apos;m Devvrat. This is the other side of the site: the{" "}
-              <span className="text-ink-light">products I&apos;m building</span> at Aback Group, the{" "}
+              <span className="text-ink-light">products I&apos;m building</span> at <AbackLinks text="Aback Group" />, the{" "}
               <span className="text-ink-light">real numbers</span> behind them, and the{" "}
               <span className="text-ink-light">notes and writing</span> I collect along the way.
             </p>
@@ -134,7 +135,7 @@ export default function MeHero() {
                 aria-label={`${SOCIALS.x.label} (opens in a new tab)`}
                 className="flex h-9 w-9 items-center justify-center transition-colors hover:text-ink-light"
               >
-                <XIcon size={15} />
+                <XIcon size={20} />
               </a>
             </div>
           </motion.div>
@@ -158,7 +159,9 @@ export default function MeHero() {
             >
               <dt className="text-[13px] leading-snug text-body">
                 {h.label}
-                <span className="mt-0.5 block text-xs text-mute">{h.note}</span>
+                <span className="mt-0.5 block text-xs text-mute">
+                  <AbackLinks text={h.note} />
+                </span>
               </dt>
               <dd className="text-2xl font-semibold tracking-[-0.03em] text-ink-light">{h.value}</dd>
             </div>

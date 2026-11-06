@@ -6,6 +6,7 @@ import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { SectionHeader, fadeUp } from "./Section";
 import { JOURNEY, ABACK } from "@/lib/aback";
+import AbackLinks from "./AbackLinks";
 
 /**
  * The Aback story as a vertical timeline. A hairline rail runs down the milestones and fills
@@ -87,14 +88,18 @@ export default function Journey() {
                   </span>
                 </div>
                 <h3 className="mt-3 text-xl font-semibold tracking-[-0.02em] text-ink-light sm:text-2xl">{m.title}</h3>
-                <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-body text-pretty">{m.body}</p>
+                <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-body text-pretty">
+                  <AbackLinks text={m.body} />
+                </p>
 
                 {m.points && (
                   <ul className="mt-5 max-w-2xl space-y-2.5">
                     {m.points.map((p) => (
                       <li key={p} className="flex items-start gap-3 text-sm leading-relaxed text-body">
                         <span aria-hidden="true" className="mt-[9px] h-1 w-1 shrink-0 bg-accent" />
-                        {p}
+                        <span>
+                          <AbackLinks text={p} />
+                        </span>
                       </li>
                     ))}
                   </ul>

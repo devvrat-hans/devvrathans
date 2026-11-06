@@ -7,6 +7,7 @@ import NewsletterForm from "@/components/NewsletterForm";
 import { NEWSLETTER_POINTS } from "@/components/NewsletterSection";
 import { fadeUp, stagger } from "@/components/Section";
 import { formatDate } from "@/lib/format";
+import AbackLinks from "@/components/AbackLinks";
 
 const facts = [
   { icon: CalendarDays, label: "Every other week" },
@@ -46,7 +47,7 @@ export default function NewsletterPageClient({ posts }: { posts: { slug: string;
               className="mx-auto mt-6 max-w-xl text-[17px] leading-relaxed text-body text-pretty sm:text-lg"
             >
               Every other week I send one email about what I&apos;m building: what shipped, the real numbers behind
-              AbackTools and Aback Launch, and the notes worth keeping. Written by me, read in five minutes.
+              <AbackLinks text="AbackTools" /> and <AbackLinks text="Aback Launch" />, and the notes worth keeping. Written by me, read in five minutes.
             </motion.p>
 
             <motion.div variants={fadeUp} transition={{ duration: 0.5 }} className="mx-auto mt-10 max-w-xl text-left">

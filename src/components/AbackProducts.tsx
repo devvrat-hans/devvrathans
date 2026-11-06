@@ -6,6 +6,7 @@ import Link from "next/link";
 import PreviewWindow from "./PreviewWindow";
 import { SectionHeader, fadeUp, stagger, trackSpotlight } from "./Section";
 import { ABACK, PRODUCTS, type Product } from "@/lib/aback";
+import AbackLinks from "./AbackLinks";
 
 // "https://abacktools.com" → "abacktools.com"
 const displayUrl = (url: string) => url.replace(/^https?:\/\//, "").replace(/\/$/, "");
@@ -27,7 +28,7 @@ export default function AbackProducts() {
           title="What I'm building."
           description={
             <>
-              Aback Group makes focused products, each doing one job well on its own domain.{" "}
+              <AbackLinks text="Aback Group" /> makes focused products, each doing one job well on its own domain.{" "}
               <span className="text-ink-light">{live.length} are live</span>, and more are on the way.
             </>
           }

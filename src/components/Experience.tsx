@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowUpRight, FileText } from "lucide-react";
 import { SectionHeader, fadeUp, stagger } from "./Section";
+import AbackLinks from "./AbackLinks";
 
 interface ExperienceItem {
   role: string;
@@ -129,13 +130,17 @@ export default function Experience() {
                   <h3 className="text-xl font-semibold tracking-[-0.02em] text-ink-light">{exp.role}</h3>
                   <span className="text-xs uppercase tracking-[0.14em] text-mute">{exp.domain}</span>
                 </header>
-                <p className="mt-1 text-[15px] text-body">{exp.company}</p>
+                <p className="mt-1 text-[15px] text-body">
+                  <AbackLinks text={exp.company} />
+                </p>
 
                 <ul className="mt-5 space-y-2.5">
                   {exp.highlights.map((h) => (
                     <li key={h} className="flex items-start gap-3 text-[15px] leading-relaxed text-body">
                       <span aria-hidden="true" className="mt-[10px] h-1 w-1 shrink-0 bg-accent" />
-                      <span>{h}</span>
+                      <span>
+                        <AbackLinks text={h} />
+                      </span>
                     </li>
                   ))}
                 </ul>
